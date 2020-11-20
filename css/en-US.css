@@ -1,0 +1,10 @@
+span:lang(en)
+{
+	display: inline;
+}
+
+span:lang(zh)
+{
+	display: none;
+}
+

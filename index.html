@@ -1,1 +1,717 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Soukarya</title>
+    <meta name="description" content="About me website with portfolio and experiences" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="Soukarya Ghosh" />
+
+    <link rel="icon" type="image/png" href="./images/flogo.png">
+
+    <!--Bootstrap Css-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Materialdesign icons Css -->
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/2.5.94/css/materialdesignicons.min.css">
+
+    <!-- Mobirise icons Css -->
+    <link rel="stylesheet" href="css/mobiriseicons.css">
+
+    <!-- Magnific-popup -->
+    <link rel="stylesheet" href="css/magnific-popup.css">
+
+    <!-- Animate Css -->
+    <link rel="stylesheet" href="css/animate.min.css">
+
+    <!-- Owl Slider -->
+    <link rel="stylesheet" href="css/owl.carousel.css" />
+    <link rel="stylesheet" href="css/owl.theme.css" />
+    <link rel="stylesheet" href="css/owl.transitions.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <!-- Custom style Css -->
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+    <!-- START LOADER -->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner">Loading...</div>
+        </div>
+    </div>
+    <!-- END LOADER -->
+
+    <!-- START NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top custom-nav sticky">
+        <div class="container">
+            <!-- LOGO -->
+            <a class="navbar-brand logo" href="">
+                <img src="images/flogo.png" alt="" class="img-fluid logo-light">
+                <img src="images/flogo.png" alt="" class="img-fluid logo-dark">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="mdi mdi-menu"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a href="#home" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#education" class="nav-link">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#experience" class="nav-link">Experience</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#project" class="nav-link">Project</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#skills" class="nav-link">Skill</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contact" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END NAVBAR -->
+
+    <!--START HOME-->
+    <section class="section h-100vh jarallax" data-jarallax='{"speed": 0.2}'
+        style="background-image: url('https://www.cs.virginia.edu/~sg4fz/assets/img/bg/slider-bg-me.jpg');"
+        id="home">
+        <div class="bg-overlay"></div>
+        <div class="home-table">
+            <div class="home-table-center">
+                <div class="container position-relative z-index">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12">
+                            <div class="text-white text-center">
+                                <h4>Hello There</h4>
+                                <h1 class="header_title mb-0 mt-3"><span lang="en-US"><b>I am</b></span> <span
+                                        lang="en-US" class="element font-weight-bold"
+                                        data-elements=" Soukarya., a Software Engineer., an Entrepreneur., a Creative., a Problem Solver."></span>
+                                </h1>
+                                <ul class="social_home list-unstyled text-center pt-4">
+                                    <li class="list-inline-item"><a href="https://www.linkedin.com/in/soukaryaghosh/"><i
+                                                class="mdi mdi-linkedin"></i></a></li>
+                                    <li class="list-inline-item"><a href="https://twitter.com/soukarya_g"><i
+                                                class="mdi mdi-twitter"></i></a></li>
+                                    <li class="list-inline-item"><a href="https://www.facebook.com/soukaryag"
+                                            target="_blank"><i class="mdi mdi-facebook"></i></a></li>
+                                    <li class="list-inline-item"><a href="https://github.com/soukaryag"
+                                            target="_blank"><i class="mdi mdi-github-circle"></i></a></li>
+                                </ul>
+                                <div class="header_btn">
+                                    <a href="./" target="_blank" class="btn btn-outline-custom btn-rounded mt-4"><span
+                                            lang="en-US">Something Exciting!</span> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll_down">
+            <a href="#about" class="scroll">
+                <i class="mbri-arrow-down text-white"></i>
+            </a>
+        </div>
+        <!-- particles.js container -->
+        <div id="particles-js"></div>
+    </section>
+    <!--END HOME-->
+
+    <!-- START ABOUT -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="text-center mx-auto section-main-title">
+                        <h2><span lang="en-US" class="font-weight-bold">About </span> <span lang="en-US">Me</span></h2>
+                        <div class="main-title-border">
+                            <i class="mdi mdi-asterisk"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4 pt-4">
+                <div class="col-lg-12">
+                    <div>
+                        <img src="https://www.cs.virginia.edu/~sg4fz/assets/img/about/abt-left.jpg" alt="" class="img-fluid mx-auto d-block" style="height: 50vh;">
+                    </div>
+                    <div class="text-center about-detail mx-auto mt-5">
+                        <h3 class="mb-3">Hello! <span lang="en-US" class="font-weight-bold text-custom">My name is Soukarya
+                                Ghosh.</span></h3>
+                        <ul class="mb-0 list-inline text-center about-work">
+                            <li class="list-inline-item mr-0 text-muted">Software</li>
+                            <li class="list-inline-item mr-0 text-muted">Mathematics</li>
+                            <li class="list-inline-item mr-0 text-muted">Finance</li>
+                        </ul>
+                        <p class="text-muted mt-3">University of Virginia B.S.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="education">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="text-center mx-auto section-main-title">
+                        <h2>My <span lang="en-US" class="font-weight-bold">Education</span></h2>
+                        <div class="main-title-border">
+                            <i class="mdi mdi-asterisk"></i>
+                        </div>
+                        <br>
+                        <h5 class="mb-3">
+                            <span lang="en-US" class="font-weight-bold text-custom">University of Virginia</span>
+                        </h5>
+                        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/d1/Virginia_Cavaliers_sabre.svg/1024px-Virginia_Cavaliers_sabre.svg.png" alt="" class="img-fluid mx-auto d-block"
+                            style="width: auto; height: 115px;">
+                        <br>
+                        <h6 class="mb-3">
+                            <span lang="en-US">August 2017 - May 2021</span>
+                        </h6>
+                        <h6 class="mb-3"><i class="fas fa-map-marker-alt"></i>
+                            <span lang="en-US">Charlottesville, VA, USA</span>
+                        </h6>
+                        <h6 class="mb-3">
+                            <span lang="en-US" class="font-weight-bold text-custom">B.S. Computer Science</span>
+                        </h6>
+                        <h6 class="mb-3">
+                            <span lang="en-US" class="font-weight-bold text-custom">B.A. Mathematics</span>
+                        </h6>
+                        <h6 class="mb-3">
+                            <span lang="en-US" class="font-weight-bold text-custom">Minor in Economics</span>
+                        </h6>
+                        <div class="main-title-border">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END ABOUT -->
+
+    <!-- START EXP. & EDU. -->
+    <section class="section" id="experience">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="text-center mx-auto section-main-title">
+                        <h2>
+                            <span lang="en-US">My</span> <span lang="en-US" class="font-weight-bold">Experience</span>
+                        </h2>
+                        <div class="main-title-border">
+                            <i class="mdi mdi-asterisk"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4 pt-4">
+                <div class="col-lg-5">
+                    <div class="cv_edu_exp mt-3">
+
+                        <div class="cv_edu_exp_box mt-4">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="cv_edu_exp_year font-weight-bold text-custom position-relative">
+                                        <span lang="en-US">December 2020 - Current</span>
+                                    </div>
+                                    <div class="cb_edu_exp_detail">
+                                        <h4>
+                                            <a href="https://waypoint.international/" target="_blank">
+                                                <span lang="en-US">Waypoint International</span>
+                                            </a>
+                                        </h4>
+                                        <p class="cv_desc mb-0">
+                                            <span lang="en-US">
+                                                Part-time consultant and software engineer for a startup focused
+                                                on taking the guesswork out of visas and passports.
+                                                <br />
+                                                Creating an automation system for notifcation and alerting.
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cv_edu_exp_box mt-4">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="cv_edu_exp_year font-weight-bold text-custom position-relative">
+                                        <span lang="en-US">January 2020 - Current</span>
+                                    </div>
+                                    <div class="cb_edu_exp_detail">
+                                        <h4>
+                                            <a href="http://trackcorona.live/" target="_blank">
+                                                <span lang="en-US">TrackCorona</span>
+                                            </a>
+                                        </h4>
+                                        <p class="cv_desc mb-0">
+                                            <span lang="en-US">
+
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cv_edu_exp_box mt-4">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="cv_edu_exp_year font-weight-bold text-custom position-relative">
+                                        <span lang="en-US">May 2020 - August 2020</span>
+                                    </div>
+                                    <div class="cb_edu_exp_detail">
+                                        <h4>
+                                            <span lang="en-US">Amazon Software Engineer Intern</span>
+                                        </h4>
+                                        <p class="cv_desc mb-0">
+                                            <span lang="en-US">
+
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-5 offset-lg-2">
+                    <div class="cv_edu_exp mt-3">
+
+                        <div class="cv_edu_exp_box mt-4">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="cv_edu_exp_year font-weight-bold text-custom position-relative">
+                                        <span lang="en-US">June 2019 - August 2019</span>
+                                    </div>
+                                    <div class="cb_edu_exp_detail">
+                                        <h4>
+                                            <span lang="en-US">Capital One Software Engineer Intern</span>
+                                        </h4>
+                                        <p class="cv_desc mb-0">
+                                            <span lang="en-US">
+
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cv_edu_exp_box mt-4">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="cv_edu_exp_year font-weight-bold text-custom position-relative">
+                                        <span lang="en-US">January 2019</span>
+                                    </div>
+                                    <div class="cb_edu_exp_detail">
+                                        <h4>
+                                            <span lang="en-US">Capital One SWE Summit</span>
+                                        </h4>
+                                        <p class="cv_desc mb-0">
+                                            <span lang="en-US">
+
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cv_edu_exp_box mt-4">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="cv_edu_exp_year font-weight-bold text-custom position-relative">
+                                        <span lang="en-US">May 2017 - June 2017</span>
+                                    </div>
+                                    <div class="cb_edu_exp_detail">
+                                        <h4>
+                                            <span lang="en-US">UberEATS Data Management Intern</span>
+                                        </h4>
+                                        <p class="cv_desc mb-0">
+                                            <span lang="en-US">
+
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--START PROJECTS -->
+    <section class="section text-center" id="project">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="text-center mx-auto section-main-title">
+                        <h2>
+                            <span lang="en-US">My</span>
+                            <span lang="en-US" class="font-weight-bold">Project</span>
+                        </h2>
+                        <div class="main-title-border">
+                            <i class="mdi mdi-asterisk"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4 pt-4">
+                <ul class="col list-unstyled list-inline mb-0 text-uppercase work_menu" id="menu-filter">
+                    <li class="list-inline-item">
+                        <a class="active" data-filter="*">
+                            <span lang="en-US">All</span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="" data-filter=".cloud">
+                            <span lang="en-US">Cloud</span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="" data-filter=".mobile">
+                            <span lang="en-US">Mobile</span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="" data-filter=".web">
+                            <span lang="en-US">Web</span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="" data-filter=".hackathons">
+                            <span lang="en-US">Hackathons</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row mt-5 work-filter">
+                <div class="col-lg-4 work_item cloud mobile web">
+                    <a href="http://trackcorona.live/" target="_blank">
+                        <div class="work_box">
+                            <div class="work_img">
+                                <img src="https://trackcorona-images.s3.amazonaws.com/map.png" class="img-fluid mx-auto d-block rounded" alt="work-img">
+                            </div>
+                            <div class="work_detail">
+                                <p class="mb-1">
+                                    <span lang="en-US">Entrepreneurial Effort</span>
+                                </p>
+                                <h4 class="mb-3">
+                                    <span lang="en-US">TrackCorona</span>
+                                </h4>
+                                <p class="mb-3 ml-3 mr-3" style="color:white">
+                                    Real time global COVID-19 tracker and visualizer 
+                                    with automated consensus based data aggregation.
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-4 work_item cloud mobile hackathons">
+                    <a href="https://github.com/soukaryag/xaiv" target="_blank">
+                        <div class="work_box">
+                            <div class="work_img">
+                                <img src="https://miro.medium.com/max/1280/0*eA-Ds2ug8Zt6sY0e.jpg"class="img-fluid mx-auto d-block rounded" alt="work-img">
+                            </div>
+                            <div class="work_detail">
+                                <p class="mb-1">
+                                    <span lang="en-US">Blockchain Hackathon</span>
+                                </p>
+                                <h4 class="mb-3">
+                                    <span lang="en-US">Xaiv</span>
+                                </h4>
+                                <p class="mb-3 ml-3 mr-3" style="color:white">
+                                    Tinder style group decisioning app with trustless data aggregation
+                                    for accurate attribution of userbase preferences.
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="col-lg-4 work_item mobile hackathons">
+                    <a href="https://github.com/soukaryag/piggy" target="_blank">
+                        <div class="work_box">
+                            <div class="work_img">
+                                <img src="https://wikiclipart.com/wp-content/uploads/2016/11/Piggy-bank-clip-art-image.png"class="img-fluid mx-auto d-block rounded" alt="work-img">
+                            </div>
+                            <div class="work_detail">
+                                <p class="mb-1">
+                                    <span lang="en-US">Capital One Hackathon</span>
+                                </p>
+                                <h4 class="mb-3">
+                                    <span lang="en-US">Piggy</span>
+                                </h4>
+                                <p class="mb-3 ml-3 mr-3" style="color:white">
+                                    
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-4 work_item cloud web">
+                    <a href="https://github.com/QData/TextAttack-WebDemo/" target="_blank">
+                        <div class="work_box">
+                            <div class="work_img">
+                                <img src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1591479926571-5edc0500968f6028e0559ff8.png?w=200&h=200&f=face"class="img-fluid mx-auto d-block rounded" alt="work-img">
+                            </div>
+                            <div class="work_detail">
+                                <p class="mb-1">
+                                    <span lang="en-US">NLP Web Demo</span>
+                                </p>
+                                <h4 class="mb-3">
+                                    <span lang="en-US">TextAttack</span>
+                                </h4>
+                                <p class="mb-3 ml-3 mr-3" style="color:white">
+                                    
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-4 work_item web hackathons">
+                    <a href="https://devpost.com/software/evia" target="_blank">
+                        <div class="work_box">
+                            <div class="work_img">
+                                <img src="https://www.clipartkey.com/mpngs/m/103-1038956_qaurus-hospital-management-systems-electronic-medical-record-vector.png" class="img-fluid mx-auto d-block rounded" alt="work-img">
+                            </div>
+                            <div class="work_detail">
+                                <p class="mb-1">
+                                    <span lang="en-US">Electronic Health Record</span>
+                                </p>
+                                <h4 class="mb-3">
+                                    <span lang="en-US">Evia</span>
+                                </h4>
+                                <p class="mb-3 ml-3 mr-3" style="color:white">
+                                    
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+
+            </div>
+        </div>
+    </section>
+    <!--END WORK -->
+
+    <!-- START SKILLS -->
+    <section class="section" id="skills">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="text-center mx-auto section-main-title" style="border-color: black;">
+                        <h2>
+                            My <span lang="en-US" class="font-weight-bold">Skill</span>
+                        </h2>
+                        <div class="main-title-border">
+                            <i class="mdi mdi-asterisk"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4 pt-4">
+                <div class="col-lg-4">
+                    <div class="lan_box_ser text-center rounded p-4 mt-3"
+                        style="border-color: black; border-style: solid;">
+                        <div class="ser_icon">
+                            <i class="mbri-github"></i>
+                        </div>
+                        <div class="service-content mt-4">
+                            <h5 class="font-weight-bold">
+                                <span lang="en-US">Language</span>
+                            </h5>
+                            <p class="mt-3 text-muted mb-0">
+                                Python, Java, C++, C, TypeScript, JavaScript, and Bash Script
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="lan_box_ser text-center rounded p-4 mt-3"
+                        style="border-color: black; border-style: solid;">
+                        <div class="ser_icon">
+                            <i class="mbri-database"></i>
+                        </div>
+                        <div class="service-content mt-4">
+                            <h5 class="font-weight-bold">
+                                <span lang="en-US">Technologies</span>
+                            </h5>
+                            <p class="mt-3 text-muted mb-0">
+                                AWS, GCloud, Jenkins, MySQL, PostgreSQL, and MongoDB 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="lan_box_ser text-center rounded p-4 mt-3"
+                        style="border-color: black; border-style: solid;">
+                        <div class="ser_icon">
+                            <i class="mbri-laptop"></i>
+                        </div>
+                        <div class="service-content mt-4">
+                            <h5 class="font-weight-bold">
+                                <span lang="en-US">Frameworks</span>
+                            </h5>
+                            <p class="mt-3 text-muted mb-0">
+                                React.js, React Native, Django, NodeJS, Flask, WebSockets, and JUnit
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+    </section>
+    <!-- END SERVICES -->
+
+    <!-- CONTACT FORM START-->
+    <section class="section " id="contact">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="text-center mx-auto section-main-title">
+                        <h2>Contact <span lang="en-US" class="font-weight-bold">Me</span></h2>
+                        <div class="main-title-border">
+                            <i class="mdi mdi-asterisk"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="text-center mt-4">
+                <div>
+                    <i class="fas fa-mobile-alt text-custom h2"></i>
+                </div>
+                <div class="mt-2">
+                    <p class="mb-0 font-weight-bold">
+                        <span lang="en-US">Call Me At</span>
+                    </p>
+                    <p class="text-muted">+1(571) 337-7193</p>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <div>
+                    <i class="fas fa-envelope text-custom h2"></i>
+                </div>
+                <div class="mt-2">
+                    <p class="mb-0 font-weight-bold">
+                        <span lang="en-US">Email Me At</span>
+                    </p>
+                    <p class="text-muted">sg4fz At virginia.edu</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- CONTACT FORM END-->
+
+    <!-- START FOOTER -->
+    <section class="bg-light">
+        <div class="container">
+            <div class="row pt-4 pb-4">
+                <div class="col-lg-12">
+                    <div class="float-right float_none mt-2 mb-2">
+                        <ul class="list-inline fot_social mb-0">
+                            <li class="list-inline-item"><a href="https://www.linkedin.com/in/soukaryaghosh/"
+                                    class="social-icon text-muted" target="_blank"><i class="mdi mdi-linkedin"></i></a>
+                            </li>
+                            <li class="list-inline-item"><a href="https://github.com/soukaryag"
+                                    class="social-icon text-muted" target="_blank"><i
+                                        class="mdi mdi-github-circle"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END FOOTER -->
+
+    <!-- BACK TO TOP -->
+    <a href="#" class="back_top"> <i class="mbri-arrow-up"> </i> </a>
+
+    <!-- JAVASCRIPTS -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!--EASING JS-->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/scrollspy.min.js"></script>
+    <!-- TYPED -->
+    <script src="js/typed.js"></script>
+    <!-- MFP JS -->
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <!--PORTFOLIO FILTER JS-->
+    <script src="js/isotope.js"></script>
+    <!--PARTICLES ANIMATE JS-->
+    <script src="js/particles.js"></script>
+    <script src="js/particles.app.js"></script>
+    <!-- PARALLAX JS -->
+    <script src="js/parallax.js"></script>
+    <!-- CONTACT JS -->
+    <script src="js/contact.js"></script>
+    <!-- OWL CAROUSEL -->
+    <script src="js/owl.carousel.min.js"></script>
+    <!--CUSTOM JS-->
+    <script src="js/custom.js"></script>
+    <script>
+        function change() {
+            if ($('span:lang(en)').css('display') === "none") {
+                $('span:lang(en)').css('display', 'inline');
+                $('span:lang(zh)').css('display', 'none');
+                $("#change").text("中文");
+            }
+            else {
+                $('span:lang(en)').css('display', 'none');
+                $('span:lang(zh)').css('display', 'inline');
+                $("#change").text("EN");
+
+            }
+        }
+    </script>
+    <script>
+        $(".element").each(function () {
+            var $this = $(this);
+            $this.typed({
+                strings: $this.attr('data-elements').split(','),
+                typeSpeed: 100,
+                backDelay: 3000
+            });
+        });
+    </script>
+</body>
+
+</html>
