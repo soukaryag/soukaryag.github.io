@@ -1,0 +1,172 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <script src="http://code.jquery.com/jquery-1.7.1.min.js" type="text/javascript"></script>  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lo">
+  <title>Hi Kruts</title>
+<link rel="icon" type="image/jpg" href="favicon.jpg">
+<style>
+body {
+    background-color: #202124;
+    font-family: "Lato", sans-serif;
+    color: white;
+}
+.containerNoShow {
+    display: none;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+.header {
+    margin: 20px auto;
+    font-size: 50px;
+    font-weight: 500;
+}
+.gifContainer {
+    margin: 5px auto;
+}
+.valentineGif {
+    width: 400px;
+    height: auto;
+}
+.questionContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 50px auto 20px auto;
+}
+.question {
+    font-size: 30px;
+    font-weight: 600;
+}
+.buttonsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px auto;
+}
+.yesButton {
+    border-radius: 5px;
+    background-color: #78c1a3;
+    margin: auto 10px;
+    padding: 10px 30px;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+    &:hover {
+        background-color: #62a086;
+    }
+}
+.noButton {
+    border-radius: 5px;
+    background-color: #f38989;
+    margin: auto 10px;
+    padding: 10px 30px;
+    cursor: not-allowed;
+    position: absolute;
+    margin-top: 120px;
+    &:hover {
+        background-color: #c76c6c;
+    }
+}
+</style>
+  
+</head>
+<body>
+	<!-- <script type="text/javascript">
+        var passwordPlease = function() {
+            var container = $('#askContainer');
+            var answer = prompt("What's the safe word?").toLowerCase()
+            if (answer.toLocaleLowerCase() == "bob") {
+                container.removeClass("containerNoShow");
+                container.addClass("container");
+            } else {
+                setTimeout(function() {
+                    alert("Hmm are you sure you're Kruti?")
+                    passwordPlease()
+                }, 200)
+            }
+        }
+        setTimeout(passwordPlease, 300)
+	</script> -->
+
+    <script type="text/javascript">
+        var sheSaidYes = function() {
+            var askContainer = $('#askContainer');
+            var acceptContainer = $('#acceptContainer');
+
+            askContainer.addClass("containerNoShow");
+            askContainer.removeClass("container");
+
+            acceptContainer.removeClass("containerNoShow");
+            acceptContainer.addClass("container");
+        }
+	</script>
+
+    <script type="text/javascript">
+        var moveButton = function() {
+            var noButton = $('#noButton');
+            var rndX = (Math.random() * 30 + 100);
+            if (Math.random() * 10 <= 5) {
+                rndX = -1 * rndX;
+            }
+
+            var rndY = (Math.random() * 30 + 100);
+            if (Math.random() * 10 <= 5) {
+                rndY = -1 * rndY;
+            }
+            noButton.css('transform', 'translate(' + rndX + 'px, ' + rndY + 'px)');
+        }
+    </script>
+
+
+    <div id="askContainer" class="container">
+        <div class="header">
+            Hi Kruti 😊
+        </div>
+
+        <div class="gifContainer">
+            <img src="https://pa1.aminoapps.com/7103/160db21f6fafdfda980ae9ad25907c7ef774fb65r1-370-300_hq.gif" alt="Valentine" class="valentineGif" data-mode="video" />
+        </div>
+
+        <div class="questionContainer">
+            <div class="question">
+                Will you be my valentine?
+            </div>
+            <div class="buttonsContainer">
+                <a class="yesButton" onclick="sheSaidYes()">
+                    Yes 🥰
+                </a>
+                <a id="noButton" class="noButton" onmouseenter="moveButton()">
+                    NO 😠
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="acceptContainer" class="containerNoShow">
+        <div class="header">
+            WOOOOOOOOO!
+        </div>
+
+        <div class="gifContainer">
+            <img src="https://media.tenor.com/TEC6z0acIbUAAAAj/cute-bears-love.gif" alt="Valentine" class="valentineGif" data-mode="video" />
+        </div>
+
+        <div class="questionContainer">
+            <div class="question">
+                Click below to RSVP to dinner
+            </div>
+            <div class="buttonsContainer">
+                <a class="yesButton" href="https://www.opentable.com/book/view?rid=193822&confnumber=2109912475&invitationId=cdd707d5-c13f-415f-bf83-05175d11b8f0" target="_blank" rel="noreferrer noopener">
+                    Dinner Res 🍽️
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
