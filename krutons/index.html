@@ -76,13 +76,12 @@ body {
   
 </head>
 <body>
-	<!-- <script type="text/javascript">
+	<script type="text/javascript">
         var passwordPlease = function() {
-            var container = $('#askContainer');
+            var askContainer = document.getElementById("askContainer");
             var answer = prompt("What's the safe word?").toLowerCase()
             if (answer.toLocaleLowerCase() == "bob") {
-                container.removeClass("containerNoShow");
-                container.addClass("container");
+                askContainer.classList = "container";
             } else {
                 setTimeout(function() {
                     alert("Hmm are you sure you're Kruti?")
@@ -91,24 +90,22 @@ body {
             }
         }
         setTimeout(passwordPlease, 300)
-	</script> -->
+	</script>
 
     <script type="text/javascript">
         var sheSaidYes = function() {
-            var askContainer = $('#askContainer');
-            var acceptContainer = $('#acceptContainer');
+            var askContainer = document.getElementById("askContainer");
+            var acceptContainer = document.getElementById("acceptContainer");
 
-            askContainer.addClass("containerNoShow");
-            askContainer.removeClass("container");
+            askContainer.classList = "containerNoShow";
+            acceptContainer.classList = "container";
 
-            acceptContainer.removeClass("containerNoShow");
-            acceptContainer.addClass("container");
         }
 	</script>
 
     <script type="text/javascript">
         var moveButton = function() {
-            var noButton = $('#noButton');
+            var noButton = document.getElementById("noButton");
             var rndX = (Math.random() * 30 + 100);
             if (Math.random() * 10 <= 5) {
                 rndX = -1 * rndX;
@@ -118,12 +115,12 @@ body {
             if (Math.random() * 10 <= 5) {
                 rndY = -1 * rndY;
             }
-            noButton.css('transform', 'translate(' + rndX + 'px, ' + rndY + 'px)');
+            noButton.style.transform = 'translate(' + rndX + 'px, ' + rndY + 'px)';
         }
     </script>
 
 
-    <div id="askContainer" class="container">
+    <div id="askContainer" class="containerNoShow">
         <div class="header">
             Hi Kruti 😊
         </div>
