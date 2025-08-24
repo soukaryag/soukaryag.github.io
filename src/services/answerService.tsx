@@ -2,6 +2,7 @@ import React from 'react';
 import { 
   MeAnswer, 
   ExperienceAnswer, 
+  ProjectsAnswer,
   SkillsAnswer, 
   ContactAnswer
 } from '../components/AnswerComponents';
@@ -20,70 +21,82 @@ export class AnswerService {
       "about", "who are you", "tell me about yourself", "introduce yourself"
     ],
     experience: [
-      "experience", "work", "job", "career", "professional", "amazon", "castle", "projects"
+      "experience", "work", "job", "career", "professional", "amazon", "castle", "capital one", "internship", "engineer", "work experience"
+    ],
+    projects: [
+      "projects", "project", "portfolio", "built", "created", "trackcorona", "textattack", "hackathon", "show me your projects"
     ],
     skills: [
-      "skills", "technologies", "programming", "languages", "tech stack"
+      "skills", "technologies", "programming", "languages", "tech stack", "python", "java", "typescript", "aws", "react", "django"
     ],
     contact: [
       "contact", "reach", "email", "phone", "linkedin", "get in touch"
     ],
     fun: [
-      "fun", "hobbies", "personal", "interesting", "diet coke", "uva"
+      "fun", "hobbies", "personal", "interesting", "uva", "awards", "weightlifting", "bengali", "art", "design", "competition"
     ]
   };
 
   private static textResponses = {
-    greeting: `Hey there! 👋 Great to see you! I'm Soukarya, a full-stack software engineer currently working at Castle in NYC. I'm passionate about building secure, scalable systems that make a real impact.
+    greeting: `Hey there! 👋 Great to see you! I'm Soukarya, a full-stack software engineer currently working at Castle in NYC, building the future of homeowner finances. I'm passionate about creating scalable systems that serve millions and drive real business impact.
 
 What would you like to know about me?`,
 
     fun: `Here's some fun stuff about me:
 
-🎓 **Wahoo!** I'm a proud UVA alum - go Hoos! 🔶🔷
+🎓 **Wahoo!** I'm a proud UVA alum with dual degrees and a 3.8 GPA - go Hoos! 🔶🔷
 
-🥤 **Diet Coke Enthusiast** - I may have built a terminal command that exploded Diet Coke cans across the screen. Priorities!
+🏆 **Award Winner** - I received the Louis T. Rader Chairperson Award for community impact and led teams to statewide competition victories.
 
-🎯 **Problem Solver** - I genuinely get excited about debugging. Yes, I know that's weird.
+🦠 **Pandemic Builder** - Co-founded TrackCorona during COVID, scaling it to serve 1M+ daily users and handle $50K monthly costs.
 
-🎮 **Hackathon Addict** - There's something magical about building something awesome in 48 hours fueled by pizza and determination.
+🎯 **Problem Solver** - I genuinely get excited about systems that serve millions and generate billions in revenue. Yes, that's weird and awesome!
 
-🚀 **Space Nerd** - I follow SpaceX launches religiously and dream about debugging code on Mars.`,
+🏃‍♂️ **Fitness Enthusiast** - I'm fluent in Bengali and English, love art & design, and you might find me weightlifting when I'm not coding.
+
+🌍 **Community Impact** - From EMS/health ventures to cryptocurrency clubs at UVA, I love building things that help people.`,
 
     fallback: `That's an interesting question! I'm still learning to understand everything, but I'd love to help you learn more about me.
 
-Try asking about my experience, skills, projects, or how to get in touch. I'm always getting better at conversations! 😊`
+Try asking about my experience (Amazon to Castle), skills (Python, Java, AWS), projects (TrackCorona, award-winning work), or how to get in touch. I'm always getting better at conversations! 😊`
   };
 
-  static async generateResponse(input: string): Promise<AnswerResponse> {
+  static async generateResponse(input: string, onRevealStart?: () => void): Promise<AnswerResponse> {
     const normalizedInput = input.toLowerCase().trim();
     
     // Check for component-based responses first
     if (this.shouldReturnMeComponent(normalizedInput)) {
       return {
         type: 'component',
-        content: <MeAnswer />
+        content: <MeAnswer key="me-answer" onRevealStart={onRevealStart} />
       };
     }
 
     if (this.shouldReturnExperienceComponent(normalizedInput)) {
       return {
         type: 'component',
-        content: <ExperienceAnswer />
+        content: <ExperienceAnswer key="experience-answer" onRevealStart={onRevealStart} />
+      };
+    }
+
+    if (this.shouldReturnProjectsComponent(normalizedInput)) {
+      return {
+        type: 'component',
+        content: <ProjectsAnswer key="projects-answer" onRevealStart={onRevealStart} />
       };
     }
 
     if (this.shouldReturnSkillsComponent(normalizedInput)) {
       return {
         type: 'component',
-        content: <SkillsAnswer />
+        content: <SkillsAnswer key="skills-answer" onRevealStart={onRevealStart} />
       };
     }
 
     if (this.shouldReturnContactComponent(normalizedInput)) {
       return {
         type: 'component',
-        content: <ContactAnswer />
+        content: <ContactAnswer key="contact-answer" onRevealStart={onRevealStart} />
       };
     }
 
@@ -130,16 +143,29 @@ Try asking about my experience, skills, projects, or how to get in touch. I'm al
     const experienceKeywords = [
       'experience',
       'work experience',
-      'projects',
       'career',
       'professional',
       'job',
-      'work',
-      'built',
-      'created',
-      'portfolio'
+      'work'
     ];
     return experienceKeywords.some(keyword => input.includes(keyword));
+  }
+
+  private static shouldReturnProjectsComponent(input: string): boolean {
+    const projectsKeywords = [
+      'projects',
+      'project',
+      'portfolio',
+      'built',
+      'created',
+      'show me your projects',
+      'trackcorona',
+      'synto',
+      'rrate',
+      'defai',
+      'hackathon'
+    ];
+    return projectsKeywords.some(keyword => input.includes(keyword));
   }
 
   private static shouldReturnSkillsComponent(input: string): boolean {

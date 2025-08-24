@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button, Input } from '../../components';
+import { Button } from '../../components';
 
 export const Container = styled.div`
   height: 100vh;
@@ -38,12 +38,14 @@ export const Header = styled.header`
   padding-top: ${props => props.theme.spacing.md};
 `;
 
-export const AvatarContainer = styled.a`
+export const AvatarContainer = styled.a<{ $visible: boolean }>`
   width: 80px;
   height: 80px;
   border-radius: 50%;
   overflow: hidden;
   cursor: pointer;
+  transition: opacity 0.5s ease-in-out;
+  opacity: ${props => props.$visible ? 1 : 0};
 `;
 
 export const Avatar = styled.img`
@@ -163,18 +165,9 @@ export const MessageBubble = styled.div<{ $isUser: boolean }>`
   ${props => props.$isUser ? `
     background: ${props.theme.colors.primary};
     border-radius: ${props.theme.borderRadius.full};
-
-    div p {
-      color: #ffffff!important;
-    }
   ` : `
     background: transparent;
     border: none;
-
-    div p {
-      color: ${props.theme.colors.text}!important;
-      margin-bottom: ${props.theme.spacing.md};
-    }
   `}
 
 
@@ -226,7 +219,7 @@ export const TypingDots = styled.div`
   span {
     width: 8px;
     height: 8px;
-    background: #ffffff; /* Force white dots for glass elements */
+    background: ${props => props.theme.colors.text};
     border-radius: 50%;
     animation: typingAnimation 1.4s infinite ease-in-out;
     

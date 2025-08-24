@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ThemeToggle, QuickActions } from '../../components';
 import { QuickAction } from '../../components/QuickActions';
 import { useTypingPlaceholder } from '../../hooks/useTypingPlaceholder';
 import { getQuickActionsForComponent } from '../../config/quickActions';
+import { usePageTransition } from '../../contexts/PageTransitionContext';
 import {
   Container,
   TopControls,
   GitHubBadge,
-  StatusBadge,
   MainContent,
   TitleSection,
   Subtitle,
@@ -36,8 +36,12 @@ const ArrowIcon = () => (
 export const HomePage: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const avatarRef = useRef<HTMLDivElement>(null);
+  const inputContainerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const { startTransition } = usePageTransition();
 
   // Typing placeholder animation
   const phrases = [
@@ -87,7 +91,53 @@ export const HomePage: React.FC = () => {
     return () => document.removeEventListener('click', handleGlobalClick);
   }, []);
 
-  // Keyboard shortcuts
+  // (Keyboard shortcuts useEffect moved after handleQuickAction definition)
+
+  const handleInputSubmit = () => {
+    const query = inputValue.trim();
+    if (!query || isLoading) return;
+    
+    setIsLoading(true);
+    
+    // Navigate to chat with query after brief delay
+    setTimeout(() => {
+      navigateToChat(query);
+    }, 300);
+  };
+
+  const navigateToChat = useCallback((query = '') => {
+    // Only proceed if we have the required refs
+    if (!avatarRef.current || !inputContainerRef.current) {
+      // Fallback to direct navigation
+      if (query) {
+        sessionStorage.setItem('initialQuery', query);
+      }
+      navigate('/chat');
+      return;
+    }
+    
+    // Set transitioning state to disable animations FIRST
+    setIsTransitioning(true);
+    
+    // Wait for the state update and CSS to take effect
+    setTimeout(() => {
+      // Now capture positions with animations disabled
+      if (avatarRef.current && inputContainerRef.current) {
+        startTransition(avatarRef.current, inputContainerRef.current, query);
+        
+        // Navigate after a brief delay to allow transition elements to be created
+        setTimeout(() => {
+          navigate('/chat');
+        }, 100);
+      }
+    }, 100); // Increased delay to ensure state update takes effect
+  }, [startTransition, navigate]);
+
+  const handleQuickAction = useCallback((action: QuickAction) => {
+    navigateToChat(action.query || '');
+  }, [navigateToChat]);
+
+  // Keyboard shortcuts - moved here after handleQuickAction definition
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Numbers 1-5 for quick actions
@@ -109,33 +159,7 @@ export const HomePage: React.FC = () => {
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [quickActions]);
-
-  const handleInputSubmit = () => {
-    const query = inputValue.trim();
-    if (!query || isLoading) return;
-    
-    setIsLoading(true);
-    
-    // Navigate to chat with query after brief delay
-    setTimeout(() => {
-      navigateToChat(query);
-    }, 300);
-  };
-
-  const handleQuickAction = (action: QuickAction) => {
-    navigateToChat(action.query || '');
-  };
-
-  const navigateToChat = (query = '') => {
-    // Store query for chat page
-    if (query) {
-      sessionStorage.setItem('initialQuery', query);
-    }
-    
-    // Navigate to chat page
-    navigate('/chat');
-  };
+  }, [quickActions, handleQuickAction]);
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
@@ -161,21 +185,21 @@ export const HomePage: React.FC = () => {
       {/* Main Content */}
       <MainContent>
         {/* Title Section */}
-        <TitleSection>
+        <TitleSection $disableAnimations={isTransitioning}>
           <Subtitle>Hey, I'm Soukarya 👋</Subtitle>
           <MainTitle>Ask me anything!</MainTitle>
         </TitleSection>
 
         {/* Avatar Section */}
-        <AvatarSection>
-          <AvatarContainer>
+        <AvatarSection $disableAnimations={isTransitioning}>
+          <AvatarContainer ref={avatarRef}>
             <AvatarImg src="/images/memoji.png" alt="Soukarya's Memoji" />
           </AvatarContainer>
         </AvatarSection>
         
         {/* Input Section */}
-        <InputSection>
-          <InputContainer className="glass">
+        <InputSection $disableAnimations={isTransitioning}>
+          <InputContainer ref={inputContainerRef} className="glass">
             <StyledInput
               ref={inputRef}
               type="text"
@@ -207,7 +231,7 @@ export const HomePage: React.FC = () => {
         </InputSection>
         
         {/* Quick Actions */}
-        <ActionsSection>
+        <ActionsSection $disableAnimations={isTransitioning}>
           <QuickActions actions={quickActions} onActionClick={handleQuickAction} />
         </ActionsSection>
       </MainContent>

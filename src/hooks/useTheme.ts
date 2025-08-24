@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { lightTheme, darkTheme, ThemeType, Theme } from '../theme';
 
 // Custom hook for theme management
@@ -28,8 +28,10 @@ export const useTheme = () => {
     return getStoredTheme() || getSystemTheme();
   });
 
-  // Get the actual theme object
-  const theme: Theme = themeType === 'dark' ? darkTheme : lightTheme;
+  // Get the actual theme object - memoized to ensure new reference on theme change
+  const theme: Theme = useMemo(() => {
+    return themeType === 'dark' ? { ...darkTheme } : { ...lightTheme };
+  }, [themeType]);
 
   // Apply theme to document
   const applyTheme = useCallback((newThemeType: ThemeType) => {

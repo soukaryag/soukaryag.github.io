@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ThemeToggle, QuickActions, Button } from '../../components';
+import { ThemeToggle, QuickActions } from '../../components';
 import { QuickAction } from '../../components/QuickActions';
 import { AnswerService } from '../../services/answerService';
 import { getChatQuickActions } from '../../config/quickActions';
+import { usePageTransition } from '../../contexts/PageTransitionContext';
 import {
   Container,
   TopControls,
@@ -58,10 +59,37 @@ export const ChatPage: React.FC = () => {
     const saved = localStorage.getItem('quickActionsCollapsed');
     return saved ? JSON.parse(saved) : false;
   });
+  const [hideElementsDuringTransition, setHideElementsDuringTransition] = useState(false);
+  const [showAvatarAfterLoad, setShowAvatarAfterLoad] = useState(false);
+  const transitionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   const messagesRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const avatarRef = useRef<HTMLAnchorElement>(null);
+  const inputContainerRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to show the content that's being revealed
+  const scrollToContent = useCallback(() => {
+    if (messagesRef.current) {
+      // Find the bot message content that's being revealed
+      const botMessages = messagesRef.current.querySelectorAll('[data-is-user="false"]');
+      const lastBotMessage = botMessages[botMessages.length - 1];
+      
+      if (lastBotMessage) {
+        // Scroll to the bot message with some offset from the top
+        const rect = lastBotMessage.getBoundingClientRect();
+        const messagesRect = messagesRef.current.getBoundingClientRect();
+        const offsetTop = rect.top - messagesRect.top + messagesRef.current.scrollTop - 20; // 20px offset from top
+        
+        messagesRef.current.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth'
+        });
+      }
+    }
+  }, []);
   const navigate = useNavigate();
+  const { transitionState, animateToTargets } = usePageTransition();
 
   // Use common quick actions configuration
   const homePageActions: QuickAction[] = getChatQuickActions();
@@ -81,16 +109,18 @@ export const ChatPage: React.FC = () => {
     }
   }, []);
 
-  // Handle initial query from home page
+  // Set hideElementsDuringTransition based on whether we're coming from home page
   useEffect(() => {
-    const initialQuery = sessionStorage.getItem('initialQuery');
-    if (initialQuery) {
-      sessionStorage.removeItem('initialQuery');
-      setIsTransitioning(true);
-      setTimeout(() => {
-        handleUserInput(initialQuery);
-      }, 500);
-    }
+    setHideElementsDuringTransition(transitionState.isTransitioning);
+  }, [transitionState.isTransitioning]);
+
+  // Show avatar after 1 second delay on page load
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowAvatarAfterLoad(true);
+    }, 500);
+
+    return () => clearTimeout(timer);
   }, []);
 
   // Auto scroll when content changes
@@ -131,7 +161,7 @@ export const ChatPage: React.FC = () => {
     localStorage.setItem('quickActionsCollapsed', JSON.stringify(quickActionsCollapsed));
   }, [quickActionsCollapsed]);
 
-  const clearPreviousContent = async () => {
+  const clearPreviousContent = useCallback(async () => {
     setIsClearing(true);
     await new Promise(resolve => setTimeout(resolve, 300));
     setCurrentBotMessage('');
@@ -139,9 +169,9 @@ export const ChatPage: React.FC = () => {
     setShowUserMessage(false);
     setUserMessageAnimationState('hidden');
     setIsClearing(false);
-  };
+  }, []);
 
-  const showUserMessageInHeader = async (content: string) => {
+  const showUserMessageInHeader = useCallback(async (content: string) => {
     // If there's already a message visible, animate it out first
     if (showUserMessage && userMessageAnimationState === 'visible') {
       setUserMessageAnimationState('slideUp');
@@ -156,14 +186,14 @@ export const ChatPage: React.FC = () => {
     // Complete the animation by setting to visible
     await new Promise(resolve => setTimeout(resolve, 50));
     setUserMessageAnimationState('visible');
-  };
+  }, [showUserMessage, userMessageAnimationState]);
 
-  const typeInBotResponse = async (content: string) => {
+  const typeInBotResponse = useCallback(async (content: string) => {
     // Show typing indicator
     setShowTypingIndicator(true);
     
     // Simulate thinking time
-    await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000));
+    await new Promise(resolve => setTimeout(resolve, 500));
     
     // Hide typing indicator
     setShowTypingIndicator(false);
@@ -177,21 +207,21 @@ export const ChatPage: React.FC = () => {
       setCurrentBotMessage(partialMessage);
       await new Promise(resolve => setTimeout(resolve, 50 + Math.random() * 50));
     }
-  };
+  }, []);
 
-  const showBotComponent = async (component: React.ReactNode) => {
+  const showBotComponent = useCallback(async (component: React.ReactNode) => {
     // Show typing indicator
     setShowTypingIndicator(true);
     
     // Simulate thinking time
-    await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000));
+    await new Promise(resolve => setTimeout(resolve, 500));
     
     // Hide typing indicator
     setShowTypingIndicator(false);
     
     // Show the component
     setCurrentBotComponent(component);
-  };
+  }, []);
 
   const handleSendMessage = async () => {
     const message = inputValue.trim();
@@ -201,20 +231,23 @@ export const ChatPage: React.FC = () => {
     await handleUserInput(message);
   };
 
-  const handleUserInput = async (input: string) => {
+  const handleUserInput = useCallback(async (input: string, isFromTransition = false) => {
     setIsTyping(true);
     setIsTransitioning(true);
     
-    // Clear previous content if any
-    if (currentBotMessage || currentBotComponent || showUserMessage) {
+    // Clear previous content if any (but not during page transitions since there shouldn't be any)
+    if (!isFromTransition && (currentBotMessage || currentBotComponent || showUserMessage)) {
       await clearPreviousContent();
     }
     
-    // Show user message in header
-    await showUserMessageInHeader(input);
+    // Only show user message in header if we're not in a page transition
+    // (page transitions handle this differently)
+    if (!isFromTransition && !hideElementsDuringTransition) {
+      await showUserMessageInHeader(input);
+    }
     
     try {
-      const response = await AnswerService.generateResponse(input);
+      const response = await AnswerService.generateResponse(input, scrollToContent);
       setResponseType(response.type);
       
       if (response.type === 'component') {
@@ -229,7 +262,106 @@ export const ChatPage: React.FC = () => {
       setIsTyping(false);
       setIsTransitioning(false);
     }
-  };
+  }, [currentBotMessage, currentBotComponent, showUserMessage, hideElementsDuringTransition, clearPreviousContent, showUserMessageInHeader, showBotComponent, typeInBotResponse]);
+
+  // Handle incoming page transitions (moved here to access handleUserInput)
+  useEffect(() => {
+    if (transitionState.isTransitioning && transitionState.query) {
+      // Clear any existing safety timeout
+      if (transitionTimeoutRef.current) {
+        clearTimeout(transitionTimeoutRef.current);
+      }
+      
+      // Hide elements during transition
+      setHideElementsDuringTransition(true);
+      setIsTransitioning(true);
+      
+      // Immediately show the user message in header for page transitions
+      setCurrentUserMessage(transitionState.query);
+      setShowUserMessage(true);
+      setUserMessageAnimationState('visible');
+      
+      // Safety timeout to ensure content shows up even if transition fails
+      transitionTimeoutRef.current = setTimeout(() => {
+        setHideElementsDuringTransition(false);
+        if (transitionState.query) {
+          handleUserInput(transitionState.query, true); // true = isFromTransition
+        }
+      }, 2000); // 2 second safety timeout
+      
+      // Wait for elements to be positioned, then get target positions and start animation
+      setTimeout(() => {
+        if (avatarRef.current && inputContainerRef.current) {
+          const avatarRect = avatarRef.current.getBoundingClientRect();
+          const inputRect = inputContainerRef.current.getBoundingClientRect();
+          
+          const avatarTarget = {
+            top: avatarRect.top + window.scrollY,
+            left: avatarRect.left + window.scrollX,
+            width: avatarRect.width,
+            height: avatarRect.height
+          };
+          
+          const inputTarget = {
+            top: inputRect.top + window.scrollY,
+            left: inputRect.left + window.scrollX,
+            width: inputRect.width,
+            height: inputRect.height
+          };
+          
+          // Start animation using the context method
+          animateToTargets(avatarTarget, inputTarget);
+          
+          // Show elements after animation and process query
+          setTimeout(() => {
+            // Clear safety timeout since we're proceeding normally
+            if (transitionTimeoutRef.current) {
+              clearTimeout(transitionTimeoutRef.current);
+              transitionTimeoutRef.current = null;
+            }
+            
+            setHideElementsDuringTransition(false);
+            
+            // Wait longer for elements to be fully visible and stable before processing
+            setTimeout(() => {
+              handleUserInput(transitionState.query, true); // true = isFromTransition
+            }, 500); // Further increased delay to ensure components are stable after transitions
+          }, 900);
+        } else {
+          // Clear safety timeout
+          if (transitionTimeoutRef.current) {
+            clearTimeout(transitionTimeoutRef.current);
+            transitionTimeoutRef.current = null;
+          }
+          
+          // Fallback: show elements and process query even if animation fails
+          setHideElementsDuringTransition(false);
+          setTimeout(() => {
+            handleUserInput(transitionState.query, true); // true = isFromTransition
+          }, 500);
+        }
+      }, 200);
+    }
+    
+    // Cleanup timeout on unmount
+    return () => {
+      if (transitionTimeoutRef.current) {
+        clearTimeout(transitionTimeoutRef.current);
+      }
+    };
+  }, [transitionState, animateToTargets, handleUserInput]);
+
+  // Handle initial query from home page (fallback for direct navigation) - moved here
+  useEffect(() => {
+    const initialQuery = sessionStorage.getItem('initialQuery');
+    if (initialQuery && !transitionState.isTransitioning) {
+      sessionStorage.removeItem('initialQuery');
+      setIsTransitioning(true);
+      setTimeout(() => {
+        handleUserInput(initialQuery);
+      }, 500);
+    }
+  }, [transitionState.isTransitioning, handleUserInput]);
 
   const handleQuickAction = (action: QuickAction) => {
     handleUserInput(action.query || '');
@@ -267,7 +399,11 @@ export const ChatPage: React.FC = () => {
       </TopControls>
       
       <Header>
-        <AvatarContainer onClick={() => navigate('/')}>
+        <AvatarContainer 
+          ref={avatarRef} 
+          onClick={() => navigate('/')}
+          $visible={showAvatarAfterLoad && !hideElementsDuringTransition}
+        >
           <Avatar src="/images/memoji.png" alt="Soukarya's Avatar" />
         </AvatarContainer>
 
@@ -301,7 +437,7 @@ export const ChatPage: React.FC = () => {
             
             {/* Current Bot Response */}
             {responseType === 'text' && currentBotMessage && (
-              <MessageWrapper $isUser={false}>
+              <MessageWrapper $isUser={false} data-is-user="false">
                 <MessageBubble $isUser={false}>
                   <MessageContent>
                     {currentBotMessage.split('\n\n').map((line, index) => (
@@ -314,7 +450,7 @@ export const ChatPage: React.FC = () => {
             
             {/* Current Bot Component Response */}
             {responseType === 'component' && currentBotComponent && (
-              <MessageWrapper $isUser={false}>
+              <MessageWrapper $isUser={false} data-is-user="false">
                 <MessageBubble $isUser={false}>
                   <MessageContent>
                     {currentBotComponent}
@@ -348,7 +484,11 @@ export const ChatPage: React.FC = () => {
             </>
           )}
         
-          <InputContainer className="glass">
+          <InputContainer 
+            ref={inputContainerRef}
+            className="glass"
+            style={{ opacity: hideElementsDuringTransition ? 0 : 1 }}
+          >
             <StyledTextarea
               ref={inputRef}
               value={inputValue}

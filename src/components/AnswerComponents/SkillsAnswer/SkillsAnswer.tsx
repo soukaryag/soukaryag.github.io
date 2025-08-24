@@ -8,13 +8,11 @@ import {
   CategoryIcon,
   CategoryTitle,
   SkillsGrid,
-  ProficiencyLegend,
-  LegendItem,
-  LegendColor,
 } from './SkillsAnswer.styles';
 
 export interface SkillsAnswerProps {
   className?: string;
+  onRevealStart?: () => void;
 }
 
 interface Skill {
@@ -28,39 +26,41 @@ interface SkillCategoryData {
   skills: Skill[];
 }
 
-export const SkillsAnswer: React.FC<SkillsAnswerProps> = ({ className }) => {
+export const SkillsAnswer: React.FC<SkillsAnswerProps> = ({ className, onRevealStart }) => {
   const skillCategories: SkillCategoryData[] = [
     {
       icon: '🔧',
-      title: 'Languages',
+      title: 'Programming Languages',
       skills: [
         { name: 'Python', proficiency: 'expert' },
         { name: 'Java', proficiency: 'expert' },
         { name: 'TypeScript', proficiency: 'expert' },
-        { name: 'C++', proficiency: 'advanced' },
-        { name: 'Bash', proficiency: 'advanced' },
+        { name: 'C++', proficiency: 'expert' },
+        { name: 'Ruby', proficiency: 'advanced' },
+        { name: 'Groovy', proficiency: 'advanced' },
         { name: 'SQL', proficiency: 'advanced' },
+        { name: 'Bash', proficiency: 'advanced' },
       ]
     },
     {
       icon: '💻',
-      title: 'Frontend',
+      title: 'Frontend & Mobile',
       skills: [
         { name: 'React.js', proficiency: 'expert' },
-        { name: 'Vite', proficiency: 'advanced' },
+        { name: 'React Native', proficiency: 'advanced' },
         { name: 'Responsive Design', proficiency: 'expert' },
-        { name: 'Styled Component', proficiency: 'advanced' }
+        { name: 'Styled Components', proficiency: 'advanced' },
       ]
     },
     {
       icon: '⚙️',
-      title: 'Backend',
+      title: 'Backend & Frameworks',
       skills: [
-        { name: 'Django', proficiency: 'advanced' },
+        { name: 'Django', proficiency: 'expert' },
         { name: 'Java Spring Boot', proficiency: 'advanced' },
-        { name: 'Node.js', proficiency: 'expert' },
         { name: 'Flask', proficiency: 'advanced' },
-        { name: 'Express.js', proficiency: 'expert' },
+        { name: 'Node.js', proficiency: 'advanced' },
+        { name: 'Apache Camel', proficiency: 'intermediate' },
         { name: 'Serverless', proficiency: 'advanced' },
       ]
     },
@@ -69,20 +69,20 @@ export const SkillsAnswer: React.FC<SkillsAnswerProps> = ({ className }) => {
       title: 'Cloud & DevOps',
       skills: [
         { name: 'AWS', proficiency: 'expert' },
-        { name: 'GCP', proficiency: 'advanced' },
-        { name: 'Docker', proficiency: 'expert' },
-        { name: 'Kubernetes', proficiency: 'advanced' },
+        { name: 'Google Cloud', proficiency: 'advanced' },
+        { name: 'Docker', proficiency: 'advanced' },
         { name: 'Jenkins CI/CD', proficiency: 'advanced' },
+        { name: 'Git', proficiency: 'expert' },
       ]
     },
     {
       icon: '🗄️',
-      title: 'Databases',
+      title: 'Data & APIs',
       skills: [
-        { name: 'PostgreSQL', proficiency: 'expert' },
-        { name: 'MongoDB', proficiency: 'advanced' },
-        { name: 'Redis', proficiency: 'advanced' },
-        { name: 'DynamoDB', proficiency: 'advanced' },
+        { name: 'SQL Databases', proficiency: 'advanced' },
+        { name: 'Google Maps API', proficiency: 'expert' },
+        { name: 'WebSockets', proficiency: 'advanced' },
+        { name: 'Meta CAPI', proficiency: 'advanced' },
       ]
     },
     {
@@ -143,8 +143,8 @@ export const SkillsAnswer: React.FC<SkillsAnswerProps> = ({ className }) => {
       <ProgressiveReveal
         items={revealItems}
         startDelay={200}
-        textSpeed={35}
         componentDelay={200}
+        onRevealStart={onRevealStart}
       />
     </Container>
   );

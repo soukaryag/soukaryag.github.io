@@ -11,11 +11,10 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   // Force re-render when theme changes
   useEffect(() => {
-    // This will trigger a re-render of all children when theme changes
-  }, [themeType]);
+  }, [themeType, theme]);
 
   return (
-    <StyledThemeProvider theme={theme} key={themeType}>
+    <StyledThemeProvider theme={theme} key={`theme-${themeType}`}>
       {children}
     </StyledThemeProvider>
   );

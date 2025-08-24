@@ -19,6 +19,8 @@ export const Container = styled.div`
 export const TypingText = styled.div<{ $isVisible?: boolean; $isHeader?: boolean }>`
   opacity: ${({ $isVisible }) => $isVisible ? 1 : 0};
   transition: opacity 0.1s ease;
+  color: ${({ theme }) => theme.colors.text};
+  line-height: 1.6;
 
   ${({ $isHeader }) => $isHeader && css`
     font-size: ${props => props.theme.typography.fontSize.xxxl};
@@ -100,4 +102,5 @@ export const RevealedComponent = styled.div<{ $isVisible?: boolean }>`
   opacity: ${({ $isVisible }) => $isVisible ? 1 : 0};
   transform: translateY(${({ $isVisible }) => $isVisible ? '0' : '10px'});
   transition: all 0.3s ease;
+  color: ${({ theme }) => theme.colors.text};
 `;

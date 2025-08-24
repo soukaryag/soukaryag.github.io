@@ -9,42 +9,43 @@ export const Container = styled.div`
 
 export const HeaderSection = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: row;
+
   gap: 1rem;
   margin-bottom: 0.5rem;
 `;
 
 export const ProfileImage = styled.img`
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid ${({ theme }) => theme.colors.primary}20;
+  width: 250px;
+  height: 250px;
+  object-fit: contain;
+  border-radius: 10px;
 `;
 
 export const BasicInfo = styled.div`
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+export const BasicInfoText = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Name = styled.h3`
   margin: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: ${({ theme }) => theme.typography.fontSize.xxxl};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.extraBold};
   color: ${({ theme }) => theme.colors.text};
 `;
 
 export const Title = styled.p`
-  margin: 0.25rem 0 0 0;
-  font-size: 1rem;
-  color: ${({ theme }) => theme.colors.textSecondary};
-  font-weight: 500;
-`;
-
-export const Location = styled.p`
-  margin: 0.25rem 0 0 0;
-  font-size: 0.9rem;
-  color: ${({ theme }) => theme.colors.textSecondary};
-  opacity: 0.8;
+  font-size: ${({ theme }) => theme.typography.fontSize.md};
+  color: ${({ theme }) => theme.colors.textSecondary}!important;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
+  margin: 0!important;
 `;
 
 export const TagsContainer = styled.div`

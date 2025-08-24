@@ -26,41 +26,62 @@ export interface ProgressiveRevealProps {
   textSpeed?: number;
   componentDelay?: number;
   className?: string;
+  disabled?: boolean; // Add prop to disable animation restarts
+  onRevealStart?: () => void; // Callback when reveal animation starts
 }
 
 export const ProgressiveReveal: React.FC<ProgressiveRevealProps> = ({
   items,
   startDelay = 500,
-  textSpeed = 50,
+  textSpeed = 10,
   componentDelay = 200,
-  className
+  className,
+  disabled = false,
+  onRevealStart
 }) => {
   const [currentItemIndex, setCurrentItemIndex] = useState(-1);
   const [typedTexts, setTypedTexts] = useState<string[]>([]);
   const [revealedComponents, setRevealedComponents] = useState<boolean[]>([]);
   const [showingLoaders, setShowingLoaders] = useState<boolean[]>([]);
+  const [hasStarted, setHasStarted] = useState(false);
 
   const typeText = useCallback((index: number, text: string): Promise<void> => {
     return new Promise((resolve) => {
       let currentIndex = 0;
-      const words = text.split(' ');
+      const characters = text.split('');
       
-      const typeWords = () => {
-        if (currentIndex < words.length) {
-          const currentText = words.slice(0, currentIndex + 1).join(' ');
+      const typeCharacters = () => {
+        if (currentIndex < characters.length) {
+          const currentText = characters.slice(0, currentIndex + 1).join('');
           setTypedTexts(prev => {
             const newTexts = [...prev];
             newTexts[index] = currentText;
             return newTexts;
           });
           currentIndex++;
-          setTimeout(typeWords, textSpeed + Math.random() * 30);
+          
+          // Smooth, consistent timing with slight variation for natural feel
+          const char = characters[currentIndex - 1];
+          let delay = textSpeed;
+          
+          // Add natural pauses
+          if (char === '.' || char === '!' || char === '?') {
+            delay = textSpeed * 8; // Longer pause after sentences
+          } else if (char === ',' || char === ';' || char === ':') {
+            delay = textSpeed * 4; // Medium pause after clauses
+          } else if (char === ' ') {
+            delay = textSpeed * 1.2; // Slight pause after words
+          } else {
+            delay = textSpeed + Math.random() * 10; // Small variation for natural feel
+          }
+          
+          setTimeout(typeCharacters, delay);
         } else {
           resolve();
         }
       };
       
-      typeWords();
+      typeCharacters();
     });
   }, [textSpeed]);
 
@@ -104,18 +125,32 @@ export const ProgressiveReveal: React.FC<ProgressiveRevealProps> = ({
   }, [items, typeText, componentDelay]);
 
   useEffect(() => {
-    // Initialize states
-    setTypedTexts(new Array(items.length).fill(''));
-    setRevealedComponents(new Array(items.length).fill(false));
-    setShowingLoaders(new Array(items.length).fill(false));
+    // Don't restart if disabled or already started
+    if (disabled || hasStarted) return;
+    
+    // Longer delay to ensure the component is fully stable after page transitions
+    const mountTimer = setTimeout(() => {
+      // Double-check we should still start (in case component was unmounted/remounted)
+      if (disabled || hasStarted) return;
+      
+      // Initialize states
+      setTypedTexts(new Array(items.length).fill(''));
+      setRevealedComponents(new Array(items.length).fill(false));
+      setShowingLoaders(new Array(items.length).fill(false));
+      setHasStarted(true);
 
-    // Start the reveal sequence
-    const startTimer = setTimeout(() => {
-      processNextItem(0);
-    }, startDelay);
+      // Start the reveal sequence with additional delay for page transitions
+      const startTimer = setTimeout(() => {
+        // Trigger scroll callback when reveal starts
+        onRevealStart?.();
+        processNextItem(0);
+      }, startDelay);
 
-    return () => clearTimeout(startTimer);
-  }, [items.length, startDelay, processNextItem]);
+      return () => clearTimeout(startTimer);
+    }, 200); // Increased delay to ensure stability after transitions
+
+    return () => clearTimeout(mountTimer);
+  }, [items.length, startDelay, processNextItem, disabled, hasStarted]);
 
 
 
@@ -165,14 +200,25 @@ export const ProgressiveReveal: React.FC<ProgressiveRevealProps> = ({
             <TypingText $isVisible={currentItemIndex >= index} $isHeader={item.type === 'header'}>
               {item.type === 'header' ? <p>{item.content}</p> : (
                 typeof item.content === 'string' 
-                ? item.content.split('\n\n').map((paragraph, pIndex) => (
-                    <p key={pIndex}>
-                      {typedTexts[index] 
-                        ? typedTexts[index].split('\n\n')[pIndex] || ''
-                        : ''
-                      }
-                    </p>
-                  ))
+                ? item.content.split('\n\n').map((paragraph, pIndex) => {
+                    const typedText = typedTexts[index] || '';
+                    const paragraphs = typedText.split('\n\n');
+                    const currentParagraph = paragraphs[pIndex] || '';
+                    
+                    return (
+                      <p key={pIndex}>
+                        {currentParagraph}
+                        {/* Add cursor only to the last visible paragraph */}
+                        {pIndex === paragraphs.length - 1 && typedText.length < (item.content as string).length && (
+                          <span style={{ 
+                            opacity: 0.7,
+                            animation: 'blink 1s infinite',
+                            marginLeft: '1px'
+                          }}>|</span>
+                        )}
+                      </p>
+                    );
+                  })
                 : item.content
               )}
             </TypingText>

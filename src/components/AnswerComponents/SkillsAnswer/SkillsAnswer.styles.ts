@@ -49,39 +49,6 @@ export const SkillsGrid = styled.div`
   }
 `;
 
-
-
-export const ProficiencyLegend = styled.div`
-  display: flex;
-  gap: 1rem;
-  margin-top: 0.5rem;
-  padding: 1rem;
-  background: ${({ theme }) => theme.colors.surface}20;
-  border-radius: 8px;
-  border: 1px solid ${({ theme }) => theme.colors.border}20;
-`;
-
-export const LegendItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.8rem;
-  color: ${({ theme }) => theme.colors.textSecondary};
-`;
-
-export const LegendColor = styled.div<{ $level: 'expert' | 'advanced' | 'intermediate' }>`
-  width: 12px;
-  height: 3px;
-  border-radius: 2px;
-  background: ${({ theme, $level }) => {
-    switch ($level) {
-      case 'expert': return theme.colors.primary;
-      case 'advanced': return theme.colors.primary + '70';
-      default: return theme.colors.primary + '30';
-    }
-  }};
-`;
-
 export const Intro = styled.p`
   margin: 0 0 1.5rem 0;
   line-height: 1.6;

@@ -19,9 +19,10 @@ import {
 
 export interface ContactAnswerProps {
   className?: string;
+  onRevealStart?: () => void;
 }
 
-export const ContactAnswer: React.FC<ContactAnswerProps> = ({ className }) => {
+export const ContactAnswer: React.FC<ContactAnswerProps> = ({ className, onRevealStart }) => {
   const contactMethods = [
     {
       icon: '📧',
@@ -55,12 +56,6 @@ export const ContactAnswer: React.FC<ContactAnswerProps> = ({ className }) => {
 
   const revealItems: RevealItem[] = [
     {
-      type: 'text',
-      content: `Let's connect! I'm always excited to chat about tech, opportunities, or just life in general.
-
-Whether you're looking to collaborate on a project, discuss tech trends, or just want to say hi - my inbox is open!`
-    },
-    {
       type: 'component',
       content: (
         <QuickContactSection>
@@ -81,6 +76,12 @@ Whether you're looking to collaborate on a project, discuss tech trends, or just
         </QuickContactSection>
       ),
       loader: 'card'
+    },
+    {
+      type: 'text',
+      content: `I'm always excited to connect with fellow engineers, discuss new opportunities, or explore potential collaborations.
+
+Whether you have questions about my experience, want to discuss technology trends, or are interested in working together - feel free to reach out through any of these channels:`
     },
     {
       type: 'grid',
@@ -113,8 +114,8 @@ Whether you're looking to collaborate on a project, discuss tech trends, or just
       <ProgressiveReveal
         items={revealItems}
         startDelay={200}
-        textSpeed={35}
         componentDelay={200}
+        onRevealStart={onRevealStart}
       />
     </Container>
   );

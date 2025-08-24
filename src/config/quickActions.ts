@@ -18,10 +18,17 @@ export const QUICK_ACTIONS: QuickActionConfig[] = [
   },
   {
     key: 'experience',
-    icon: '🚀',
+    icon: '💼',
     text: 'Experience',
-    description: 'My work journey and projects',
-    query: "What's your work experience and projects?"
+    description: 'My professional work journey',
+    query: "What's your work experience?"
+  },
+  {
+    key: 'projects',
+    icon: '🚀',
+    text: 'Projects',
+    description: 'Featured projects and builds',
+    query: "Show me your projects"
   },
   {
     key: 'skills',
@@ -29,13 +36,6 @@ export const QUICK_ACTIONS: QuickActionConfig[] = [
     text: 'Skills',
     description: 'Technical skills and expertise',
     query: 'What are your technical skills?'
-  },
-  {
-    key: 'fun',
-    icon: '🎯',
-    text: 'Fun',
-    description: 'Personal interests and fun facts',
-    query: 'Tell me something fun about you'
   },
   {
     key: 'contact',

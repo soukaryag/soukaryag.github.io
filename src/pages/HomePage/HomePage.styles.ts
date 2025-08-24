@@ -98,11 +98,15 @@ export const MainContent = styled.main`
   text-align: center;
 `;
 
-export const TitleSection = styled.div`
+export const TitleSection = styled.div<{ $disableAnimations?: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  animation: slideInUp 0.8s ease-out;
+  animation: ${props => props.$disableAnimations ? 'none !important' : 'slideInUp 0.8s ease-out'};
+  ${props => props.$disableAnimations && `
+    transform: none !important;
+    opacity: 1 !important;
+  `}
 `;
 
 export const Subtitle = styled.p`
@@ -126,8 +130,12 @@ export const MainTitle = styled.p`
   opacity: 0.8;
 `;
 
-export const AvatarSection = styled.div`
-  animation: slideInUp 0.8s ease-out 0.2s both;
+export const AvatarSection = styled.div<{ $disableAnimations?: boolean }>`
+  animation: ${props => props.$disableAnimations ? 'none !important' : 'slideInUp 0.8s ease-out 0.2s both'};
+  ${props => props.$disableAnimations && `
+    transform: none !important;
+    opacity: 1 !important;
+  `}
 `;
 
 export const AvatarContainer = styled.div`
@@ -141,10 +149,14 @@ export const AvatarImg = styled.img`
   height: calc(100%);
 `;
 
-export const InputSection = styled.div`
+export const InputSection = styled.div<{ $disableAnimations?: boolean }>`
   width: 100%;
   max-width: 500px;
-  animation: slideInUp 0.8s ease-out 0.4s both;
+  animation: ${props => props.$disableAnimations ? 'none !important' : 'slideInUp 0.8s ease-out 0.4s both'};
+  ${props => props.$disableAnimations && `
+    transform: none !important;
+    opacity: 1 !important;
+  `}
 `;
 
 export const InputContainer = styled.div`
@@ -231,9 +243,13 @@ export const SubmitButton = styled.button`
   }
 `;
 
-export const ActionsSection = styled.div`
-  animation: slideInUp 0.8s ease-out 0.6s both;
+export const ActionsSection = styled.div<{ $disableAnimations?: boolean }>`
+  animation: ${props => props.$disableAnimations ? 'none !important' : 'slideInUp 0.8s ease-out 0.6s both'};
   width: 100%;
+  ${props => props.$disableAnimations && `
+    transform: none !important;
+    opacity: 1 !important;
+  `}
 `;
 
 export const Footer = styled.footer`

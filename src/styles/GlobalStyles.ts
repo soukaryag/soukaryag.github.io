@@ -273,22 +273,22 @@ export const GlobalStyles = createGlobalStyle`
 
   /* Quick Actions text color override for light mode */
   [data-theme="light"] .glass span {
-    color: #6b7280 !important;
+    color: #6b7280;
   }
 
   [data-theme="light"] .glass:hover span {
-    color: #000000 !important;
+    color: #000000;
   }
 
   /* Footer text override for light mode */
   [data-theme="light"] footer p {
-    color: #6b7280 !important;
+    color: #6b7280;
   }
 
   /* Dark mode color overrides */
   [data-theme="dark"] body {
-    background-color: #0f0f0f !important;
-    color: #f5f5f5 !important;
+    background-color: #0f0f0f;
+    color: #f5f5f5;
   }
 
   /* Override styled-components text colors for dark mode */
@@ -296,26 +296,7 @@ export const GlobalStyles = createGlobalStyle`
   [data-theme="dark"] h2,
   [data-theme="dark"] h3,
   [data-theme="dark"] p {
-    color: #f5f5f5 !important;
-  }
-
-  /* Status badge and links for dark mode */
-  [data-theme="dark"] a {
-    color: #f5f5f5 !important;
-  }
-
-  /* Quick Actions text color override for dark mode */
-  [data-theme="dark"] .glass span {
-    color: #a3a3a3 !important;
-  }
-
-  [data-theme="dark"] .glass:hover span {
-    color: #f5f5f5 !important;
-  }
-
-  /* Footer text override for dark mode */
-  [data-theme="dark"] footer p {
-    color: #a3a3a3 !important;
+    color: #f5f5f5;
   }
 
   /* Light Mode Glass Effects Override */
