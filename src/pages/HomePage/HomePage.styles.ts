@@ -19,19 +19,29 @@ export const Container = styled.div`
 export const TopControls = styled.div`
   position: fixed;
   top: ${props => props.theme.spacing.lg};
-  right: ${props => props.theme.spacing.lg};
+  width: 100%;
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 ${props => props.theme.spacing.lg};
+  z-index: 10;
+`;
+
+export const TopControlsRight = styled.div`
+  display: flex;
+  flex-direction: row;
   align-items: center;
   gap: ${props => props.theme.spacing.sm};
-  z-index: 10;
 `;
 
 export const GitHubBadge = styled.a`
   display: flex;
   align-items: center;
   gap: ${props => props.theme.spacing.xs};
-  padding: ${props => props.theme.spacing.xs} ${props => props.theme.spacing.sm};
+  padding: ${props => props.theme.spacing.sm} ${props => props.theme.spacing.md};
   border-radius: ${props => props.theme.borderRadius.full};
+  border: 1px solid transparent;
   text-decoration: none;
   color: ${props => props.theme.colors.textSecondary};
   font-size: ${props => props.theme.typography.fontSize.sm};
@@ -53,11 +63,10 @@ export const GitHubBadge = styled.a`
 `;
 
 export const StatusBadge = styled.a`
-  position: fixed;
-  top: ${props => props.theme.spacing.lg};
-  left: ${props => props.theme.spacing.lg};
-  padding: ${props => props.theme.spacing.xs} ${props => props.theme.spacing.sm};
+  position: relative;
+  padding: ${props => props.theme.spacing.sm} ${props => props.theme.spacing.md};
   border-radius: ${props => props.theme.borderRadius.full};
+  border: 1px solid transparent;
   text-decoration: none;
   color: ${props => props.theme.colors.textSecondary};
   font-size: ${props => props.theme.typography.fontSize.sm};
@@ -85,7 +94,7 @@ export const MainContent = styled.main`
   align-items: center;
   gap: ${props => props.theme.spacing.lg};
   width: 100%;
-  max-width: 600px;
+  max-width: 750px;
   text-align: center;
 `;
 
@@ -142,7 +151,7 @@ export const InputContainer = styled.div`
   display: flex;
   align-items: center;
   padding: 8px 12px;
-  border-radius: 40px;
+  border-radius: ${props => props.theme.borderRadius.full};
   overflow: hidden;
   background: ${props => props.theme.colors.glass};
   backdrop-filter: blur(40px) saturate(180%);
@@ -201,7 +210,7 @@ export const SubmitButton = styled.button`
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: #0171e3;
+  background: #1F8AFF;
   color: white;
   border: none;
   cursor: pointer;
@@ -213,7 +222,7 @@ export const SubmitButton = styled.button`
   z-index: 2;
   
   &:hover {
-    background: #026eda;
+    background:rgb(27, 126, 232);
   }
   
   &:disabled {
@@ -224,10 +233,15 @@ export const SubmitButton = styled.button`
 
 export const ActionsSection = styled.div`
   animation: slideInUp 0.8s ease-out 0.6s both;
+  width: 100%;
 `;
 
 export const Footer = styled.footer`
   text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   padding: ${props => props.theme.spacing.lg} 0;
   animation: slideInUp 0.8s ease-out 0.8s both;
 `;
@@ -239,7 +253,6 @@ export const FooterText = styled.p`
 `;
 
 export const FooterLink = styled.a`
-  color: ${props => props.theme.colors.primary};
   text-decoration: none;
   font-weight: ${props => props.theme.typography.fontWeight.medium};
   margin: 0 ${props => props.theme.spacing.xs};

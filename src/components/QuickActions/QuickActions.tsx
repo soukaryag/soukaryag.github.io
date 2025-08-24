@@ -1,5 +1,6 @@
 import React from 'react';
-import { ActionsContainer, ActionButton, ActionIcon, ActionText } from './QuickActions.styles';
+import { ActionsContainer, ActionIcon, ActionText } from './QuickActions.styles';
+import { Button } from '../Button';
 
 export interface QuickAction {
   key: string;
@@ -31,7 +32,7 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ actions, onActionCli
   return (
     <ActionsContainer>
       {actions.map((action) => (
-        <ActionButton
+        <Button
           key={action.key}
           variant="glass"
           size="md"
@@ -40,10 +41,19 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ actions, onActionCli
           onClick={() => handleActionClick(action)}
           onKeyDown={(e) => handleKeyDown(e, action)}
           tabIndex={0}
+          style={{
+            borderRadius: '16px',
+            padding: '16px 24px',
+            width: '110px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '8px',
+          }}
         >
           <ActionIcon>{action.icon}</ActionIcon>
           <ActionText>{action.text}</ActionText>
-        </ActionButton>
+        </Button>
       ))}
     </ActionsContainer>
   );

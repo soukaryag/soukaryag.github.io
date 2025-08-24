@@ -52,7 +52,7 @@ const getVariantStyles = (variant: ButtonVariant) => {
         border: 1px solid ${props => props.theme.colors.border};
         border-top: 1px solid rgba(255, 255, 255, 0.8);
         border-left: 1px solid rgba(255, 255, 255, 0.7);
-        border-radius: 16px;
+        border-radius: ${props => props.theme.borderRadius.full};
         position: relative;
         overflow: hidden;
         transition: all ${props => props.theme.transitions.medium};
@@ -148,7 +148,7 @@ export const StyledButton = styled.button<{
   font-weight: ${props => props.theme.typography.fontWeight.medium};
   line-height: ${props => props.theme.typography.lineHeight.tight};
   
-  border-radius: ${props => props.theme.borderRadius.md};
+  border-radius: ${props => props.theme.borderRadius.full};
   transition: ${props => props.theme.transitions.fast};
   cursor: pointer;
   user-select: none;

@@ -23,12 +23,3 @@ export const ThemeIcon = styled.span<{ $isVisible: boolean }>`
     /* Dark mode icon */
   }
 `;
-
-export const IconWrapper = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.25rem;
-  height: 1.25rem;
-`;

@@ -12,6 +12,7 @@ export interface Theme {
     success: string;
     warning: string;
     error: string;
+    castle: string;
   };
   spacing: {
     xs: string;
@@ -151,6 +152,7 @@ export const lightTheme: Theme = {
     success: '#10b981',
     warning: '#f59e0b',
     error: '#ef4444',
+    castle: '#DBC08D',
   },
 };
 
@@ -169,6 +171,7 @@ export const darkTheme: Theme = {
     success: '#34d399',
     warning: '#fbbf24',
     error: '#f87171',
+    castle: '#DBC08D',
   },
 };
 

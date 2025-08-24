@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from '../../hooks/useTheme';
 import Button from '../Button';
-import { ToggleContainer, ThemeIcon, IconWrapper } from './ThemeToggle.styles';
+import { ToggleContainer, ThemeIcon } from './ThemeToggle.styles';
 
 export interface ThemeToggleProps {
   className?: string;
@@ -32,11 +32,16 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({ className }) => {
         onClick={handleToggle}
         onKeyDown={handleKeyDown}
         icon={
-          <IconWrapper>
+          <>
             <ThemeIcon $isVisible={!isDark}>🌙</ThemeIcon>
             <ThemeIcon $isVisible={isDark}>☀️</ThemeIcon>
-          </IconWrapper>
+          </>
         }
+        style={{
+          width: '40px',
+          height: '40px',
+          borderRadius: '50%',
+        }}
       >
         <span className="sr-only">Toggle theme</span>
       </Button>

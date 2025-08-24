@@ -120,7 +120,7 @@ export const InputWrapper = styled.div<{ $variant: InputVariant }>`
   
   ${props => props.$variant === 'glass' && css`
     padding: 8px 12px;
-    border-radius: 40px;
+    border-radius: ${props => props.theme.borderRadius.full};
     overflow: hidden;
     background: ${props.theme.colors.glass};
     backdrop-filter: blur(40px) saturate(180%);
@@ -162,7 +162,7 @@ export const StyledInput = styled.input<{
   flex: 1;
   font-family: ${props => props.theme.typography.fontFamily};
   color: ${props => props.theme.colors.text};
-  border-radius: ${props => props.$variant === 'glass' ? '0' : props.theme.borderRadius.md};
+  border-radius: ${props => props.theme.borderRadius.full};
   transition: ${props => props.theme.transitions.fast};
   outline: none;
   position: relative;

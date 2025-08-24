@@ -22,7 +22,8 @@ import {
   ActionsSection,
   Footer,
   FooterText,
-  FooterLink
+  FooterLink,
+  TopControlsRight
 } from './HomePage.styles';
 
 const ArrowIcon = () => (
@@ -40,11 +41,11 @@ export const HomePage: React.FC = () => {
   // Typing placeholder animation
   const phrases = [
     "Ask me anything...",
-    "What's my experience?",
+    "Where do you work?",
     "Tell me about your projects",
+    "What are your skills?",
     "How can I contact you?",
-    "Something fun about you?",
-    "What are your skills?"
+    "Tell me something fun about you!"
   ];
   
   const typingPlaceholder = useTypingPlaceholder(phrases, {
@@ -52,7 +53,7 @@ export const HomePage: React.FC = () => {
     deleteSpeed: 50,
     pauseTime: 2000,
     startDelay: 2000
-  });
+  }, !inputValue.trim()); // Only active when input is empty
 
   // Quick actions configuration
   const quickActions: QuickAction[] = [
@@ -151,16 +152,17 @@ export const HomePage: React.FC = () => {
     <Container>
       {/* Top Right Controls */}
       <TopControls>
-        <ThemeToggle />
-        <GitHubBadge href="https://github.com/soukaryag" target="_blank" rel="noopener noreferrer">
-          GitHub
-        </GitHubBadge>
+        {/* Status Badge */}
+        <StatusBadge href="https://www.getcastle.com/careers" target="_blank" rel="noopener noreferrer" className="glass btn-hover">
+          Come work at Castle!
+        </StatusBadge>
+        <TopControlsRight>
+          <ThemeToggle />
+          <GitHubBadge href="https://github.com/soukaryag" target="_blank" rel="noopener noreferrer" className="glass btn-hover">
+            GitHub
+          </GitHubBadge>
+        </TopControlsRight>
       </TopControls>
-      
-      {/* Status Badge */}
-      <StatusBadge href="https://www.getcastle.com/careers" target="_blank" rel="noopener noreferrer">
-        Come work at Castle!
-      </StatusBadge>
       
       {/* Main Content */}
       <MainContent>
@@ -179,20 +181,20 @@ export const HomePage: React.FC = () => {
         
         {/* Input Section */}
         <InputSection>
-          <InputContainer>
+          <InputContainer className="glass">
             <StyledInput
               ref={inputRef}
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              placeholder={typingPlaceholder || "Ask me anything..."}
+              placeholder={typingPlaceholder || ""}
               onKeyPress={handleKeyPress}
               autoComplete="off"
               spellCheck="false"
             />
             <SubmitButton 
               onClick={handleInputSubmit}
-              disabled={isLoading || !inputValue.trim()}
+              disabled={isLoading}
             >
               {isLoading ? (
                 <div style={{

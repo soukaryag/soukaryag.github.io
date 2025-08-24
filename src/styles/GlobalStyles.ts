@@ -26,7 +26,7 @@ export const GlobalStyles = createGlobalStyle`
     background-color: ${props => props.theme.colors.background};
     color: ${props => props.theme.colors.text};
     line-height: ${props => props.theme.typography.lineHeight.normal};
-    transition: background-color ${props => props.theme.transitions.medium};
+    transition: background-color ${props => props.theme.transitions.medium}, color ${props => props.theme.transitions.medium};
     overflow-x: hidden;
     min-height: 100vh;
   }
@@ -105,7 +105,7 @@ export const GlobalStyles = createGlobalStyle`
     border: 1px solid ${props => props.theme.colors.border};
     border-top: 1px solid rgba(255, 255, 255, 0.8);
     border-left: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 16px;
+    border-radius: ${props => props.theme.borderRadius.full};
     position: relative;
     overflow: hidden;
     box-shadow: 
@@ -126,39 +126,6 @@ export const GlobalStyles = createGlobalStyle`
       rgba(255, 255, 255, 0.4) 0%,
       rgba(255, 255, 255, 0.1) 50%,
       rgba(255, 255, 255, 0.05) 100%
-    );
-    pointer-events: none;
-    border-radius: inherit;
-  }
-
-  .glass-strong {
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(60px) saturate(200%);
-    -webkit-backdrop-filter: blur(60px) saturate(200%);
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    border-top: 1px solid rgba(255, 255, 255, 0.9);
-    border-left: 1px solid rgba(255, 255, 255, 0.8);
-    border-radius: 20px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 
-      0 12px 40px rgba(0, 0, 0, 0.08),
-      inset 0 1px 0 rgba(255, 255, 255, 0.95),
-      inset 0 -1px 0 rgba(255, 255, 255, 0.3);
-  }
-
-  .glass-strong::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.6) 0%,
-      rgba(255, 255, 255, 0.2) 50%,
-      rgba(255, 255, 255, 0.1) 100%
     );
     pointer-events: none;
     border-radius: inherit;
@@ -282,18 +249,130 @@ export const GlobalStyles = createGlobalStyle`
     }
   }
 
-  /* Dark mode specific adjustments */
-  [data-theme="dark"] {
-    body {
-      color-scheme: dark;
-    }
+  /* Light mode color overrides */
+  [data-theme="light"] body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
   }
 
-  /* Light mode specific adjustments */
-  [data-theme="light"] {
-    body {
-      color-scheme: light;
-    }
+  /* Override styled-components text colors for light mode */
+  [data-theme="light"] h1,
+  [data-theme="light"] h2, 
+  [data-theme="light"] h3,
+  [data-theme="light"] p {
+    color: #000000 !important;
+  }
+
+  /* Status badge and links for light mode */
+  [data-theme="light"] a {
+    color: #000000 !important;
+  }
+
+  /* Quick Actions text color override for light mode */
+  [data-theme="light"] .glass span {
+    color: #6b7280 !important;
+  }
+
+  [data-theme="light"] .glass:hover span {
+    color: #000000 !important;
+  }
+
+  /* Footer text override for light mode */
+  [data-theme="light"] footer p {
+    color: #6b7280 !important;
+  }
+
+  /* Dark mode color overrides */
+  [data-theme="dark"] body {
+    background-color: #0f0f0f !important;
+    color: #f5f5f5 !important;
+  }
+
+  /* Override styled-components text colors for dark mode */
+  [data-theme="dark"] h1,
+  [data-theme="dark"] h2,
+  [data-theme="dark"] h3,
+  [data-theme="dark"] p {
+    color: #f5f5f5 !important;
+  }
+
+  /* Status badge and links for dark mode */
+  [data-theme="dark"] a {
+    color: #f5f5f5 !important;
+  }
+
+  /* Quick Actions text color override for dark mode */
+  [data-theme="dark"] .glass span {
+    color: #a3a3a3 !important;
+  }
+
+  [data-theme="dark"] .glass:hover span {
+    color: #f5f5f5 !important;
+  }
+
+  /* Footer text override for dark mode */
+  [data-theme="dark"] footer p {
+    color: #a3a3a3 !important;
+  }
+
+  /* Light Mode Glass Effects Override */
+  [data-theme="light"] .glass {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-top: 1px solid rgba(255, 255, 255, 0.8);
+    border-left: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  [data-theme="light"] .glass::before {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.4) 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+  }
+
+  /* Light Mode Button Hover Effects */
+  [data-theme="light"] .btn-hover:hover {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(50px) saturate(200%);
+    border-color: rgba(255, 255, 255, 0.8);
+  }
+
+  /* Dark Mode Glass Effects Override */
+  [data-theme="dark"] .glass {
+    background: rgba(20, 20, 20, 0.4);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  [data-theme="dark"] .glass::before {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      rgba(255, 255, 255, 0.05) 50%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+  }
+
+  /* Dark Mode Button Hover Effects */
+  [data-theme="dark"] .btn-hover:hover {
+    background: rgba(40, 40, 40, 0.6);
+    backdrop-filter: blur(50px) saturate(200%);
+    border-color: rgba(255, 255, 255, 0.2);
   }
 
   /* Keyframe animations */

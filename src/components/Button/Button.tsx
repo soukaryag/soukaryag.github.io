@@ -35,6 +35,7 @@ export const Button: React.FC<ButtonProps> = ({
       $fullWidth={fullWidth}
       $isLoading={isLoading}
       disabled={disabled || isLoading}
+      className={variant === 'glass' ? 'glass btn-hover' : undefined}
       {...props}
     >
       {isLoading && <LoadingSpinner />}
