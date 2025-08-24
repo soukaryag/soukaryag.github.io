@@ -210,7 +210,7 @@ export const SubmitButton = styled.button`
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: #1F8AFF;
+  background: ${props => props.theme.colors.primary};
   color: white;
   border: none;
   cursor: pointer;
@@ -222,7 +222,7 @@ export const SubmitButton = styled.button`
   z-index: 2;
   
   &:hover {
-    background:rgb(27, 126, 232);
+    opacity: 0.8;
   }
   
   &:disabled {

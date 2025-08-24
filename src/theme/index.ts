@@ -140,8 +140,8 @@ export const baseTheme: Omit<Theme, 'colors'> = {
 export const lightTheme: Theme = {
   ...baseTheme,
   colors: {
-    primary: '#232d74', // Original UVA Blue
-    secondary: '#4c63d2', // Original UVA Blue Light
+    primary: '#1F8AFF', // iMessage Blue
+    secondary: '#213442', // iMessage Dark Blue
     background: '#ffffff', // Pure white
     surface: 'rgba(255, 255, 255, 0.25)',
     text: '#000000', // Darker text
@@ -159,8 +159,8 @@ export const lightTheme: Theme = {
 export const darkTheme: Theme = {
   ...baseTheme,
   colors: {
-    primary: '#4c63d2', // Original UVA Blue Light for dark
-    secondary: '#6b7fdb', // Lighter blue for dark mode
+    primary: '#1F8AFF', // iMessage Blue
+    secondary: '#213442', // iMessage Dark Blue
     background: '#0f0f0f', // Very dark background
     surface: 'rgba(25, 25, 25, 0.6)',
     text: '#f5f5f5', // Light text for dark mode

@@ -252,7 +252,7 @@ export const GlobalStyles = createGlobalStyle`
   /* Light mode color overrides */
   [data-theme="light"] body {
     background-color: #ffffff !important;
-    color: #000000 !important;
+    color: #000000;
   }
 
   /* Override styled-components text colors for light mode */
@@ -260,12 +260,12 @@ export const GlobalStyles = createGlobalStyle`
   [data-theme="light"] h2, 
   [data-theme="light"] h3,
   [data-theme="light"] p {
-    color: #000000 !important;
+    color: #000000;
   }
 
   /* Status badge and links for light mode */
   [data-theme="light"] a {
-    color: #000000 !important;
+    color: #000000;
   }
 
   /* Quick Actions text color override for light mode */
