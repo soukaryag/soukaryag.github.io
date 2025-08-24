@@ -10,6 +10,13 @@ export const ActionsContainer = styled.div`
   gap: ${props => props.theme.spacing.md};
   width: 100%;
   
+  &.compact-actions {
+    /* Hide webkit scrollbar for compact variant */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  
   @media (max-width: ${props => props.theme.breakpoints.mobile}) {
     gap: ${props => props.theme.spacing.sm};
   }

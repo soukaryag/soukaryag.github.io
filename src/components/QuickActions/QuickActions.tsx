@@ -13,9 +13,10 @@ export interface QuickAction {
 export interface QuickActionsProps {
   actions: QuickAction[];
   onActionClick?: (action: QuickAction) => void;
+  variant?: 'default' | 'compact';
 }
 
-export const QuickActions: React.FC<QuickActionsProps> = ({ actions, onActionClick }) => {
+export const QuickActions: React.FC<QuickActionsProps> = ({ actions, onActionClick, variant = 'default' }) => {
   const handleActionClick = (action: QuickAction) => {
     if (onActionClick) {
       onActionClick(action);
@@ -29,19 +30,41 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ actions, onActionCli
     }
   };
 
+  const isCompact = variant === 'compact';
+
   return (
-    <ActionsContainer>
+    <ActionsContainer 
+      className={isCompact ? 'compact-actions' : ''}
+      style={isCompact ? {
+        justifyContent: 'center',
+        gap: '8px',
+        padding: '2px 0 12px 0',
+        overflowX: 'auto',
+        scrollbarWidth: 'none',
+        msOverflowStyle: 'none',
+      } : undefined}>
       {actions.map((action) => (
         <Button
           key={action.key}
           variant="glass"
-          size="md"
+          size={isCompact ? "sm" : "md"}
           data-action={action.key}
           data-prompt={action.prompt}
           onClick={() => handleActionClick(action)}
           onKeyDown={(e) => handleKeyDown(e, action)}
           tabIndex={0}
-          style={{
+          style={isCompact ? {
+            borderRadius: '12px',
+            padding: '12px 16px',
+            minWidth: 'auto',
+            width: 'auto',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: '6px',
+            whiteSpace: 'nowrap',
+            flexShrink: 0,
+          } : {
             borderRadius: '16px',
             padding: '16px 24px',
             width: '110px',
@@ -51,8 +74,12 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ actions, onActionCli
             gap: '8px',
           }}
         >
-          <ActionIcon>{action.icon}</ActionIcon>
-          <ActionText>{action.text}</ActionText>
+          <ActionIcon style={isCompact ? { fontSize: '14px' } : undefined}>
+            {action.icon}
+          </ActionIcon>
+          <ActionText style={isCompact ? { fontSize: '12px', fontWeight: 500 } : undefined}>
+            {action.text}
+          </ActionText>
         </Button>
       ))}
     </ActionsContainer>

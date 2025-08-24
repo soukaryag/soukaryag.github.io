@@ -8,19 +8,17 @@ import {
   Header,
   AvatarContainer,
   Avatar,
-  ProfileInfo,
-  Name,
-  PersonalInfo,
-  Bio,
-  TagsContainer,
-  Tag,
+  UserMessageInHeader,
   MessagesContainer,
   MessageWrapper,
   MessageBubble,
   MessageContent,
   TypingIndicator,
   TypingDots,
+  ClearingOverlay,
   InputArea,
+  QuickActionsWrapper,
+  QuickActionsToggle,
   InputContainer,
   StyledTextarea,
   SendButton,
@@ -207,10 +205,17 @@ I'll be getting AI superpowers soon to answer more complex questions! ⚡`;
 }
 
 export const ChatPage: React.FC = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [currentUserMessage, setCurrentUserMessage] = useState<string>('');
+  const [currentBotMessage, setCurrentBotMessage] = useState<string>('');
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [showTypingIndicator, setShowTypingIndicator] = useState(false);
+  const [isClearing, setIsClearing] = useState(false);
+  const [showUserMessage, setShowUserMessage] = useState(false);
+  const [quickActionsCollapsed, setQuickActionsCollapsed] = useState(() => {
+    const saved = localStorage.getItem('quickActionsCollapsed');
+    return saved ? JSON.parse(saved) : false;
+  });
   
   const messagesRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -279,10 +284,10 @@ export const ChatPage: React.FC = () => {
     }
   }, []);
 
-  // Auto scroll when messages change
+  // Auto scroll when content changes
   useEffect(() => {
     scrollToBottom();
-  }, [messages, showTypingIndicator, scrollToBottom]);
+  }, [currentBotMessage, showTypingIndicator, scrollToBottom]);
 
   // Auto-resize textarea on input change
   useEffect(() => {
@@ -312,17 +317,25 @@ export const ChatPage: React.FC = () => {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [navigate]);
 
-  const addUserMessage = (content: string) => {
-    const userMessage: Message = {
-      id: Date.now(),
-      type: 'user',
-      content,
-      timestamp: new Date()
-    };
-    setMessages(prev => [...prev, userMessage]);
+  // Save quick actions collapsed state to localStorage
+  useEffect(() => {
+    localStorage.setItem('quickActionsCollapsed', JSON.stringify(quickActionsCollapsed));
+  }, [quickActionsCollapsed]);
+
+  const clearPreviousContent = async () => {
+    setIsClearing(true);
+    await new Promise(resolve => setTimeout(resolve, 300));
+    setCurrentBotMessage('');
+    setShowUserMessage(false);
+    setIsClearing(false);
   };
 
-  const addBotMessage = async (content: string) => {
+  const showUserMessageInHeader = (content: string) => {
+    setCurrentUserMessage(content);
+    setShowUserMessage(true);
+  };
+
+  const typeInBotResponse = async (content: string) => {
     // Show typing indicator
     setShowTypingIndicator(true);
     
@@ -332,14 +345,15 @@ export const ChatPage: React.FC = () => {
     // Hide typing indicator
     setShowTypingIndicator(false);
     
-    const botMessage: Message = {
-      id: Date.now() + 1,
-      type: 'bot',
-      content,
-      timestamp: new Date()
-    };
+    // Type in the response character by character
+    setCurrentBotMessage('');
+    const words = content.split(' ');
     
-    setMessages(prev => [...prev, botMessage]);
+    for (let i = 0; i < words.length; i++) {
+      const partialMessage = words.slice(0, i + 1).join(' ');
+      setCurrentBotMessage(partialMessage);
+      await new Promise(resolve => setTimeout(resolve, 50 + Math.random() * 50));
+    }
   };
 
   const handleSendMessage = async () => {
@@ -351,14 +365,21 @@ export const ChatPage: React.FC = () => {
   };
 
   const handleUserInput = async (input: string) => {
-    addUserMessage(input);
     setIsTyping(true);
+    
+    // Clear previous content if any
+    if (currentBotMessage || showUserMessage) {
+      await clearPreviousContent();
+    }
+    
+    // Show user message in header
+    showUserMessageInHeader(input);
     
     try {
       const response = await ChatService.generateResponse(input);
-      await addBotMessage(response);
+      await typeInBotResponse(response);
     } catch (error) {
-      await addBotMessage("Sorry, I'm having trouble thinking right now. Try asking again in a moment!");
+      await typeInBotResponse("Sorry, I'm having trouble thinking right now. Try asking again in a moment!");
     } finally {
       setIsTyping(false);
     }
@@ -368,6 +389,10 @@ export const ChatPage: React.FC = () => {
     handleUserInput(action.query || '');
   };
 
+  const toggleQuickActions = () => {
+    setQuickActionsCollapsed(!quickActionsCollapsed);
+  };
+
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -375,23 +400,7 @@ export const ChatPage: React.FC = () => {
     }
   };
 
-  const renderMessage = (message: Message) => {
-    const lines = message.content.split('\n\n');
-    
-    return (
-      <MessageWrapper key={message.id} $isUser={message.type === 'user'}>
-        <MessageBubble $isUser={message.type === 'user'}>
-          <MessageContent>
-            {lines.map((line, index) => (
-              <p key={index}>{line}</p>
-            ))}
-          </MessageContent>
-        </MessageBubble>
-      </MessageWrapper>
-    );
-  };
-
-  const isEmpty = messages.length === 0;
+  const isEmpty = !currentBotMessage && !showUserMessage;
 
   return (
     <Container>
@@ -416,10 +425,17 @@ export const ChatPage: React.FC = () => {
         <AvatarContainer onClick={() => navigate('/')}>
           <Avatar src="/images/memoji.png" alt="Soukarya's Avatar" />
         </AvatarContainer>
+
+        {/* User Message appears below profile */}
+        <UserMessageInHeader $visible={showUserMessage}>
+          <p>{currentUserMessage}</p>
+        </UserMessageInHeader>
       </Header>
       
       {/* Chat Messages Area */}
       <MessagesContainer ref={messagesRef}>
+        <ClearingOverlay $isClearing={isClearing} />
+        
         {isEmpty ? (
           <EmptyState>
             <h3>Ask me anything</h3>
@@ -428,8 +444,6 @@ export const ChatPage: React.FC = () => {
           </EmptyState>
         ) : (
           <>
-            {messages.map(renderMessage)}
-            
             {/* Typing Indicator */}
             {showTypingIndicator && (
               <TypingIndicator>
@@ -440,34 +454,67 @@ export const ChatPage: React.FC = () => {
                 </TypingDots>
               </TypingIndicator>
             )}
+            
+            {/* Current Bot Response */}
+            {currentBotMessage && (
+              <MessageWrapper $isUser={false}>
+                <MessageBubble $isUser={false}>
+                  <MessageContent>
+                    {currentBotMessage.split('\n\n').map((line, index) => (
+                      <p key={index}>{line}</p>
+                    ))}
+                  </MessageContent>
+                </MessageBubble>
+              </MessageWrapper>
+            )}
           </>
         )}
       </MessagesContainer>
       
-      {/* Input Area */}
-      <InputArea>
-        <InputContainer className="glass">
-          <StyledTextarea
-            ref={inputRef}
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            placeholder="Ask me anything..."
-            onKeyPress={handleKeyPress}
-            disabled={isTyping}
-            rows={1}
-            style={{
-              outline: 'none',
-            }}
-          />
-          <SendButton 
-            variant="primary"
-            size="sm"
-            onClick={handleSendMessage}
-            disabled={isTyping}
-            icon={<SendIcon />}
-          />
-        </InputContainer>
-      </InputArea>
+        <InputArea>
+          {/* Only show collapsible quick actions when there's an active conversation */}
+          {!isEmpty && (
+            <>
+              <QuickActionsToggle 
+                onClick={toggleQuickActions}
+                className={quickActionsCollapsed ? 'collapsed' : ''}
+              >
+                <span className="chevron">↓</span>
+                <span>{quickActionsCollapsed ? 'Show' : 'Hide'} quick questions</span>
+              </QuickActionsToggle>
+              
+              <QuickActionsWrapper $isCollapsed={quickActionsCollapsed}>
+                <QuickActions 
+                  actions={homePageActions} 
+                  onActionClick={handleQuickAction}
+                  variant="compact"
+                />
+              </QuickActionsWrapper>
+            </>
+          )}
+        
+          <InputContainer className="glass">
+            <StyledTextarea
+              ref={inputRef}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              placeholder="Ask me anything..."
+              onKeyPress={handleKeyPress}
+              disabled={isTyping}
+              rows={1}
+              style={{
+                outline: 'none',
+              }}
+            />
+            <SendButton 
+              variant="primary"
+              size="sm"
+              onClick={handleSendMessage}
+              disabled={isTyping}
+              icon={<SendIcon />}
+            />
+          </InputContainer>
+        </InputArea>
     </Container>
   );
 };

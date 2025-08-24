@@ -51,51 +51,22 @@ export const Avatar = styled.img`
   object-fit: cover;
 `;
 
-export const ProfileInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: ${props => props.theme.spacing.md};
-`;
-
-export const Name = styled.h1`
-  font-size: ${props => props.theme.typography.fontSize.xl};
-  font-weight: ${props => props.theme.typography.fontWeight.bold};
-  color: ${props => props.theme.colors.text};
-  margin: 0 0 ${props => props.theme.spacing.xs} 0;
-`;
-
-export const PersonalInfo = styled.div`
-  color: ${props => props.theme.colors.textSecondary};
-  font-size: ${props => props.theme.typography.fontSize.sm};
-`;
-
-export const Bio = styled.p`
-  font-size: ${props => props.theme.typography.fontSize.md};
-  color: ${props => props.theme.colors.textSecondary};
-  margin: ${props => props.theme.spacing.md} 0;
-  max-width: 600px;
-  line-height: ${props => props.theme.typography.lineHeight.relaxed};
-`;
-
-export const TagsContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: ${props => props.theme.spacing.xs};
-  justify-content: center;
-`;
-
-export const Tag = styled.span`
-  display: inline-flex;
-  align-items: center;
-  padding: ${props => props.theme.spacing.xs} ${props => props.theme.spacing.sm};
-  background: ${props => props.theme.colors.glass};
-  border: 1px solid ${props => props.theme.colors.border};
+export const UserMessageInHeader = styled.div<{ $visible: boolean }>`
+  width: 100%;
+  margin-top: ${props => props.theme.spacing.md};
+  padding: ${props => props.theme.spacing.sm} ${props => props.theme.spacing.md};
+  background: ${props => props.theme.colors.primary};
+  color: white;
   border-radius: ${props => props.theme.borderRadius.full};
-  font-size: ${props => props.theme.typography.fontSize.xs};
-  font-weight: ${props => props.theme.typography.fontWeight.medium};
-  color: ${props => props.theme.colors.text};
-  backdrop-filter: blur(10px);
+  font-size: ${props => props.theme.typography.fontSize.md};
+  opacity: ${props => props.$visible ? 1 : 0};
+  transform: translateY(${props => props.$visible ? '0' : '10px'});
+  transition: all 0.3s ease;
+  
+  p {
+    margin: 0;
+    color: white !important;
+  }
 `;
 
 export const MessagesContainer = styled.main`
@@ -104,10 +75,7 @@ export const MessagesContainer = styled.main`
   padding: ${props => props.theme.spacing.lg};
   display: flex;
   flex-direction: column;
-  gap: ${props => props.theme.spacing.lg};
-  max-width: 800px;
-  margin: 0 auto;
-  width: 100%;
+  max-width: 750px;
   
   /* Custom scrollbar */
   &::-webkit-scrollbar {
@@ -130,7 +98,9 @@ export const MessagesContainer = styled.main`
 
 export const MessageWrapper = styled.div<{ $isUser: boolean }>`
   display: flex;
-  justify-content: ${props => props.$isUser ? 'flex-end' : 'flex-start'};
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
   animation: fadeIn 0.3s ease-out;
   
   @keyframes fadeIn {
@@ -146,8 +116,8 @@ export const MessageWrapper = styled.div<{ $isUser: boolean }>`
 `;
 
 export const MessageBubble = styled.div<{ $isUser: boolean }>`
-  max-width: 80%;
-  padding: ${props => props.theme.spacing.sm} ${props => props.theme.spacing.md};
+  width: 100%;
+  padding: ${props => props.theme.spacing.lg};
   
   ${props => props.$isUser ? `
     background: ${props.theme.colors.primary};
@@ -157,46 +127,19 @@ export const MessageBubble = styled.div<{ $isUser: boolean }>`
       color: #ffffff!important;
     }
   ` : `
-    backdrop-filter: blur(40px) saturate(180%);
-    -webkit-backdrop-filter: blur(40px) saturate(180%);
-    border: 1px solid ${props.theme.colors.border};
-    border-top: 1px solid rgba(255, 255, 255, 0.9);
-    border-left: 1px solid rgba(255, 255, 255, 0.8);
-    border-radius: 18px 18px 18px 4px;
-    position: relative;
-    box-shadow: 
-      0 12px 40px rgba(0, 0, 0, 0.08),
-      inset 0 1px 0 rgba(255, 255, 255, 0.95),
-      inset 0 -1px 0 rgba(255, 255, 255, 0.3);
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.4) 0%,
-        rgba(255, 255, 255, 0.1) 50%,
-        rgba(255, 255, 255, 0.05) 100%
-      );
-      pointer-events: none;
-      border-radius: inherit;
-    }
+    background: transparent;
+    border: none;
 
     div p {
       color: ${props.theme.colors.text}!important;
-      position: relative;
-      z-index: 1;
+      margin-bottom: ${props.theme.spacing.md};
     }
   `}
 
 
   
   @media (max-width: ${props => props.theme.breakpoints.mobile}) {
-    max-width: 90%;
+    padding: ${props => props.theme.spacing.md};
   }
 `;
 
@@ -213,8 +156,21 @@ export const MessageContent = styled.div`
 
 export const TypingIndicator = styled.div`
   display: flex;
-  justify-content: flex-start;
-  margin-bottom: ${props => props.theme.spacing.md};
+  justify-content: center;
+  margin: ${props => props.theme.spacing.xl} 0;
+`;
+
+export const ClearingOverlay = styled.div<{ $isClearing: boolean }>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: ${props => props.theme.colors.background};
+  opacity: ${props => props.$isClearing ? 1 : 0};
+  transition: opacity 0.3s ease;
+  pointer-events: ${props => props.$isClearing ? 'all' : 'none'};
+  z-index: 5;
 `;
 
 export const TypingDots = styled.div`
@@ -259,15 +215,54 @@ export const InputArea = styled.div`
   position: sticky;
   bottom: 0;
   width: 100%;
-  height: 100px;
+  padding: ${props => props.theme.spacing.md};
   z-index: 10;
+  background: ${props => props.theme.colors.background};
+  border-top: 1px solid ${props => props.theme.colors.border};
+`;
+
+export const QuickActionsWrapper = styled.div<{ $isCollapsed: boolean }>`
+  overflow: hidden;
+  transition: all 0.3s ease;
+  max-height: ${props => props.$isCollapsed ? '0' : '100px'};
+  opacity: ${props => props.$isCollapsed ? '0' : '1'};
+`;
+
+export const QuickActionsToggle = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: ${props => props.theme.spacing.xs};
+  width: 100%;
+  padding: ${props => props.theme.spacing.xs};
+  background: transparent;
+  border: none;
+  color: ${props => props.theme.colors.textSecondary};
+  font-size: ${props => props.theme.typography.fontSize.xs};
+  font-weight: ${props => props.theme.typography.fontWeight.medium};
+  cursor: pointer;
+  transition: ${props => props.theme.transitions.fast};
+  margin-bottom: ${props => props.theme.spacing.xs};
+  
+  &:hover {
+    color: ${props => props.theme.colors.text};
+  }
+  
+  .chevron {
+    transition: transform 0.3s ease;
+    font-size: ${props => props.theme.typography.fontSize.sm};
+  }
+  
+  &.collapsed .chevron {
+    transform: rotate(180deg);
+  }
 `;
 
 export const InputContainer = styled.div`
   display: flex;
   gap: ${props => props.theme.spacing.sm};
   align-items: flex-end;
-  max-width: 800px;
+  max-width: 700px;
   margin: 0 auto;
   background: ${props => props.theme.colors.glass};
   backdrop-filter: blur(40px) saturate(180%);
