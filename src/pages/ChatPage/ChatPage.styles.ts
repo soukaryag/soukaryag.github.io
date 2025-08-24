@@ -51,7 +51,10 @@ export const Avatar = styled.img`
   object-fit: cover;
 `;
 
-export const UserMessageInHeader = styled.div<{ $visible: boolean }>`
+export const UserMessageInHeader = styled.div<{ 
+  $visible: boolean; 
+  $animationState: 'hidden' | 'slideUp' | 'slideDown' | 'visible' 
+}>`
   width: 100%;
   margin-top: ${props => props.theme.spacing.md};
   padding: ${props => props.theme.spacing.sm} ${props => props.theme.spacing.md};
@@ -59,9 +62,41 @@ export const UserMessageInHeader = styled.div<{ $visible: boolean }>`
   color: white;
   border-radius: ${props => props.theme.borderRadius.full};
   font-size: ${props => props.theme.typography.fontSize.md};
-  opacity: ${props => props.$visible ? 1 : 0};
-  transform: translateY(${props => props.$visible ? '0' : '10px'});
-  transition: all 0.3s ease;
+  
+  ${props => {
+    switch (props.$animationState) {
+      case 'hidden':
+        return `
+          opacity: 0;
+          transform: translateY(10px);
+          transition: all 0.3s ease;
+        `;
+      case 'slideUp':
+        return `
+          opacity: 0;
+          transform: translateY(-30px);
+          transition: all 0.3s ease;
+        `;
+      case 'slideDown':
+        return `
+          opacity: 0;
+          transform: translateY(-20px);
+          transition: none;
+        `;
+      case 'visible':
+        return `
+          opacity: 1;
+          transform: translateY(0);
+          transition: all 0.3s ease;
+        `;
+      default:
+        return `
+          opacity: ${props.$visible ? 1 : 0};
+          transform: translateY(${props.$visible ? '0' : '10px'});
+          transition: all 0.3s ease;
+        `;
+    }
+  }}
   
   p {
     margin: 0;
@@ -117,7 +152,6 @@ export const MessageWrapper = styled.div<{ $isUser: boolean }>`
 
 export const MessageBubble = styled.div<{ $isUser: boolean }>`
   width: 100%;
-  padding: ${props => props.theme.spacing.lg};
   
   ${props => props.$isUser ? `
     background: ${props.theme.colors.primary};
@@ -154,12 +188,6 @@ export const MessageContent = styled.div`
   }
 `;
 
-export const TypingIndicator = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: ${props => props.theme.spacing.xl} 0;
-`;
-
 export const ClearingOverlay = styled.div<{ $isClearing: boolean }>`
   position: absolute;
   top: 0;
@@ -173,6 +201,12 @@ export const ClearingOverlay = styled.div<{ $isClearing: boolean }>`
   z-index: 5;
 `;
 
+export const TypingIndicator = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  margin: ${props => props.theme.spacing.xl} 0;
+`;
+
 export const TypingDots = styled.div`
   display: flex;
   align-items: center;
@@ -180,7 +214,6 @@ export const TypingDots = styled.div`
   padding: ${props => props.theme.spacing.md} ${props => props.theme.spacing.lg};
   background: ${props => props.theme.colors.glass};
   backdrop-filter: blur(10px);
-  border: 1px solid ${props => props.theme.colors.border};
   border-radius: 18px 18px 18px 4px;
   
   span {
@@ -308,8 +341,8 @@ export const EmptyState = styled.div`
   text-align: center;
   color: ${props => props.theme.colors.textSecondary};
   
-  h3 {
-    font-size: ${props => props.theme.typography.fontSize.lg};
+  h2 {
+    font-size: ${props => props.theme.typography.fontSize.xxxl};
     margin-bottom: ${props => props.theme.spacing.sm};
     color: ${props => props.theme.colors.text};
   }

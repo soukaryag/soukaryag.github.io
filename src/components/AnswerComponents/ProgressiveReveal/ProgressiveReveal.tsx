@@ -163,8 +163,8 @@ export const ProgressiveReveal: React.FC<ProgressiveRevealProps> = ({
         <div key={index} style={{ width: '100%' }}>
           {item.type === 'text' || item.type === 'header' ? (
             <TypingText $isVisible={currentItemIndex >= index} $isHeader={item.type === 'header'}>
-              {item.type === 'header' && <p>{item.content}</p>}
-              {typeof item.content === 'string' 
+              {item.type === 'header' ? <p>{item.content}</p> : (
+                typeof item.content === 'string' 
                 ? item.content.split('\n\n').map((paragraph, pIndex) => (
                     <p key={pIndex}>
                       {typedTexts[index] 
@@ -174,7 +174,7 @@ export const ProgressiveReveal: React.FC<ProgressiveRevealProps> = ({
                     </p>
                   ))
                 : item.content
-              }
+              )}
             </TypingText>
           ) : (
             <>

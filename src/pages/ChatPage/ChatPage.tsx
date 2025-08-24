@@ -52,6 +52,8 @@ export const ChatPage: React.FC = () => {
   const [showTypingIndicator, setShowTypingIndicator] = useState(false);
   const [isClearing, setIsClearing] = useState(false);
   const [showUserMessage, setShowUserMessage] = useState(false);
+  const [userMessageAnimationState, setUserMessageAnimationState] = useState<'hidden' | 'slideUp' | 'slideDown' | 'visible'>('hidden');
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const [quickActionsCollapsed, setQuickActionsCollapsed] = useState(() => {
     const saved = localStorage.getItem('quickActionsCollapsed');
     return saved ? JSON.parse(saved) : false;
@@ -84,6 +86,7 @@ export const ChatPage: React.FC = () => {
     const initialQuery = sessionStorage.getItem('initialQuery');
     if (initialQuery) {
       sessionStorage.removeItem('initialQuery');
+      setIsTransitioning(true);
       setTimeout(() => {
         handleUserInput(initialQuery);
       }, 500);
@@ -134,12 +137,25 @@ export const ChatPage: React.FC = () => {
     setCurrentBotMessage('');
     setCurrentBotComponent(null);
     setShowUserMessage(false);
+    setUserMessageAnimationState('hidden');
     setIsClearing(false);
   };
 
-  const showUserMessageInHeader = (content: string) => {
+  const showUserMessageInHeader = async (content: string) => {
+    // If there's already a message visible, animate it out first
+    if (showUserMessage && userMessageAnimationState === 'visible') {
+      setUserMessageAnimationState('slideUp');
+      await new Promise(resolve => setTimeout(resolve, 300));
+    }
+    
+    // Set new content and animate it in
     setCurrentUserMessage(content);
     setShowUserMessage(true);
+    setUserMessageAnimationState('slideDown');
+    
+    // Complete the animation by setting to visible
+    await new Promise(resolve => setTimeout(resolve, 50));
+    setUserMessageAnimationState('visible');
   };
 
   const typeInBotResponse = async (content: string) => {
@@ -187,6 +203,7 @@ export const ChatPage: React.FC = () => {
 
   const handleUserInput = async (input: string) => {
     setIsTyping(true);
+    setIsTransitioning(true);
     
     // Clear previous content if any
     if (currentBotMessage || currentBotComponent || showUserMessage) {
@@ -194,7 +211,7 @@ export const ChatPage: React.FC = () => {
     }
     
     // Show user message in header
-    showUserMessageInHeader(input);
+    await showUserMessageInHeader(input);
     
     try {
       const response = await AnswerService.generateResponse(input);
@@ -210,6 +227,7 @@ export const ChatPage: React.FC = () => {
       await typeInBotResponse("Sorry, I'm having trouble thinking right now. Try asking again in a moment!");
     } finally {
       setIsTyping(false);
+      setIsTransitioning(false);
     }
   };
 
@@ -228,12 +246,12 @@ export const ChatPage: React.FC = () => {
     }
   };
 
-  const isEmpty = !currentBotMessage && !currentBotComponent && !showUserMessage;
+  const isEmpty = !currentBotMessage && !currentBotComponent && !showUserMessage && !isTransitioning;
 
   return (
     <Container>
       <TopControls>
-        <Button
+        {/* <Button
           variant="glass" 
           size="sm" 
           onClick={() => navigate('/')}
@@ -243,19 +261,17 @@ export const ChatPage: React.FC = () => {
           }}
         >
           Home
-        </Button>
-        
+        </Button> */}
+        <div />
         <ThemeToggle />
       </TopControls>
       
-      {/* Header with Profile */}
       <Header>
         <AvatarContainer onClick={() => navigate('/')}>
           <Avatar src="/images/memoji.png" alt="Soukarya's Avatar" />
         </AvatarContainer>
 
-        {/* User Message appears below profile */}
-        <UserMessageInHeader $visible={showUserMessage}>
+        <UserMessageInHeader $visible={showUserMessage} $animationState={userMessageAnimationState}>
           <p>{currentUserMessage}</p>
         </UserMessageInHeader>
       </Header>
@@ -264,9 +280,9 @@ export const ChatPage: React.FC = () => {
       <MessagesContainer ref={messagesRef}>
         <ClearingOverlay $isClearing={isClearing} />
         
-        {isEmpty ? (
+        {isEmpty && !isTransitioning ? (
           <EmptyState>
-            <h3>Ask me anything</h3>
+            <h2>Ask me anything</h2>
             <p>I'd love to tell you about my experience, projects, or just chat!</p>
             <QuickActions actions={homePageActions} onActionClick={handleQuickAction} />
           </EmptyState>
@@ -343,6 +359,7 @@ export const ChatPage: React.FC = () => {
               rows={1}
               style={{
                 outline: 'none',
+                height: 'auto',
               }}
             />
             <SendButton 

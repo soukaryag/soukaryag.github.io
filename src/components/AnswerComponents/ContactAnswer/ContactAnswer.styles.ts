@@ -34,7 +34,6 @@ export const ContactCard = styled.a`
   transition: all 0.2s ease;
   
   &:hover {
-    transform: translateY(-2px);
     border-color: ${({ theme }) => theme.colors.primary}40;
     box-shadow: 0 4px 12px ${({ theme }) => theme.colors.primary}10;
     background: ${({ theme }) => theme.colors.surface}60;
@@ -84,15 +83,16 @@ export const QuickContactSection = styled.div`
   flex-direction: column;
   gap: 1rem;
   padding: 1.5rem;
-  background: ${({ theme }) => theme.colors.primary}08;
+  background: ${({ theme }) => theme.colors.glass};
+  box-shadow: 0 4px 12px ${({ theme }) => theme.colors.primary}10;
+  backdrop-filter: blur(10px);
   border-radius: 12px;
-  border: 1px solid ${({ theme }) => theme.colors.primary}20;
 `;
 
 export const QuickContactHeader = styled.h3`
   margin: 0;
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: ${({ theme }) => theme.typography.fontSize.xl};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
   color: ${({ theme }) => theme.colors.text};
   text-align: center;
 `;
@@ -102,12 +102,12 @@ export const QuickContactText = styled.p`
   line-height: 1.5;
   color: ${({ theme }) => theme.colors.textSecondary};
   text-align: center;
-  font-size: 0.95rem;
+  font-size: ${({ theme }) => theme.typography.fontSize.md};
 `;
 
 export const PrimaryContactButtons = styled.div`
   display: flex;
-  gap: 0.75rem;
+  gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
 `;
@@ -118,7 +118,7 @@ export const ContactButton = styled.a`
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
   background: ${({ theme }) => theme.colors.primary};
-  color: white;
+  color: white!important;
   text-decoration: none;
   border-radius: 8px;
   font-weight: 500;
@@ -127,7 +127,6 @@ export const ContactButton = styled.a`
   
   &:hover {
     background: ${({ theme }) => theme.colors.primary}dd;
-    transform: translateY(-1px);
     box-shadow: 0 3px 8px ${({ theme }) => theme.colors.primary}30;
   }
 `;

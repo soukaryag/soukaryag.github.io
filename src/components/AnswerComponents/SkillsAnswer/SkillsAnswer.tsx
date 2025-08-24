@@ -1,5 +1,6 @@
 import React from 'react';
 import { ProgressiveReveal, RevealItem } from '../ProgressiveReveal';
+import { Button } from '../../Button';
 import {
   Container,
   SkillCategory,
@@ -7,10 +8,9 @@ import {
   CategoryIcon,
   CategoryTitle,
   SkillsGrid,
-  SkillChip,
   ProficiencyLegend,
   LegendItem,
-  LegendColor
+  LegendColor,
 } from './SkillsAnswer.styles';
 
 export interface SkillsAnswerProps {
@@ -37,10 +37,9 @@ export const SkillsAnswer: React.FC<SkillsAnswerProps> = ({ className }) => {
         { name: 'Python', proficiency: 'expert' },
         { name: 'Java', proficiency: 'expert' },
         { name: 'TypeScript', proficiency: 'expert' },
-        { name: 'JavaScript', proficiency: 'expert' },
         { name: 'C++', proficiency: 'advanced' },
-        { name: 'Go', proficiency: 'advanced' },
-        { name: 'Bash', proficiency: 'advanced' }
+        { name: 'Bash', proficiency: 'advanced' },
+        { name: 'SQL', proficiency: 'advanced' },
       ]
     },
     {
@@ -48,8 +47,7 @@ export const SkillsAnswer: React.FC<SkillsAnswerProps> = ({ className }) => {
       title: 'Frontend',
       skills: [
         { name: 'React.js', proficiency: 'expert' },
-        { name: 'Next.js', proficiency: 'advanced' },
-        { name: 'HTML5/CSS3', proficiency: 'expert' },
+        { name: 'Vite', proficiency: 'advanced' },
         { name: 'Responsive Design', proficiency: 'expert' },
         { name: 'Styled Components', proficiency: 'advanced' }
       ]
@@ -58,11 +56,12 @@ export const SkillsAnswer: React.FC<SkillsAnswerProps> = ({ className }) => {
       icon: '⚙️',
       title: 'Backend',
       skills: [
-        { name: 'Node.js', proficiency: 'expert' },
         { name: 'Django', proficiency: 'advanced' },
+        { name: 'Java Spring Boot', proficiency: 'advanced' },
+        { name: 'Node.js', proficiency: 'expert' },
         { name: 'Flask', proficiency: 'advanced' },
         { name: 'Express.js', proficiency: 'expert' },
-        { name: 'Microservices', proficiency: 'advanced' }
+        { name: 'Serverless', proficiency: 'advanced' },
       ]
     },
     {
@@ -73,7 +72,7 @@ export const SkillsAnswer: React.FC<SkillsAnswerProps> = ({ className }) => {
         { name: 'GCP', proficiency: 'advanced' },
         { name: 'Docker', proficiency: 'expert' },
         { name: 'Kubernetes', proficiency: 'advanced' },
-        { name: 'Jenkins CI/CD', proficiency: 'advanced' }
+        { name: 'Jenkins CI/CD', proficiency: 'advanced' },
       ]
     },
     {
@@ -83,28 +82,19 @@ export const SkillsAnswer: React.FC<SkillsAnswerProps> = ({ className }) => {
         { name: 'PostgreSQL', proficiency: 'expert' },
         { name: 'MongoDB', proficiency: 'advanced' },
         { name: 'Redis', proficiency: 'advanced' },
-        { name: 'DynamoDB', proficiency: 'advanced' }
+        { name: 'DynamoDB', proficiency: 'advanced' },
       ]
     },
     {
       icon: '🤖',
-      title: 'AI/ML',
+      title: 'LLMs',
       skills: [
-        { name: 'TensorFlow', proficiency: 'advanced' },
-        { name: 'PyTorch', proficiency: 'advanced' },
-        { name: 'NLP', proficiency: 'advanced' },
-        { name: 'Computer Vision', proficiency: 'intermediate' }
+        { name: 'Claude', proficiency: 'advanced' },
+        { name: 'Cursor', proficiency: 'advanced' },
+        { name: 'GPT', proficiency: 'advanced' },
+        { name: 'Gemini', proficiency: 'advanced' },
       ]
     },
-    {
-      icon: '🔒',
-      title: 'Security',
-      skills: [
-        { name: 'Fraud Detection', proficiency: 'expert' },
-        { name: 'Secure System Design', proficiency: 'advanced' },
-        { name: 'Threat Modeling', proficiency: 'advanced' }
-      ]
-    }
   ];
 
   const revealItems: RevealItem[] = [
@@ -124,36 +114,28 @@ export const SkillsAnswer: React.FC<SkillsAnswerProps> = ({ className }) => {
           
           <SkillsGrid>
             {category.skills.map((skill, skillIndex) => (
-              <SkillChip key={skillIndex} $proficiency={skill.proficiency}>
+              <Button
+                key={skillIndex}
+                variant="glass"
+                size="sm"
+                className="glass btn-hover"
+                style={{
+                  opacity: skill.proficiency === 'expert' ? 1 : 
+                    skill.proficiency === 'advanced' ? 0.85 : 0.7,
+                  fontWeight: skill.proficiency === 'expert' ? 600 : 
+                    skill.proficiency === 'advanced' ? 500 : 400,
+                  padding: '0.8rem 1rem',
+                }}
+              >
                 {skill.name}
-              </SkillChip>
+              </Button>
             ))}
           </SkillsGrid>
         </SkillCategory>
       ),
       loader: 'grid' as const,
       loaderCount: category.skills.length
-    })),
-    {
-      type: 'component',
-      content: (
-        <ProficiencyLegend>
-          <LegendItem>
-            <LegendColor $level="expert" />
-            <span>Expert</span>
-          </LegendItem>
-          <LegendItem>
-            <LegendColor $level="advanced" />
-            <span>Advanced</span>
-          </LegendItem>
-          <LegendItem>
-            <LegendColor $level="intermediate" />
-            <span>Intermediate</span>
-          </LegendItem>
-        </ProficiencyLegend>
-      ),
-      loader: 'line'
-    }
+    }))
   ];
 
   return (

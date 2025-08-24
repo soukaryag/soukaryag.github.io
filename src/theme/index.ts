@@ -60,6 +60,7 @@ export interface Theme {
       medium: number;
       semibold: number;
       bold: number;
+      extraBold: number;
     };
     lineHeight: {
       tight: number;
@@ -122,6 +123,7 @@ export const baseTheme: Omit<Theme, 'colors'> = {
       medium: 500,
       semibold: 600,
       bold: 700,
+      extraBold: 800,
     },
     lineHeight: {
       tight: 1.25,

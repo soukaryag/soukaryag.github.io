@@ -145,12 +145,11 @@ export const HomePage: React.FC = () => {
 
   return (
     <Container>
-      {/* Top Right Controls */}
       <TopControls>
-        {/* Status Badge */}
-        <StatusBadge href="https://www.getcastle.com/careers" target="_blank" rel="noopener noreferrer" className="glass btn-hover">
+        {/* <StatusBadge href="https://www.getcastle.com/careers" target="_blank" rel="noopener noreferrer" className="glass btn-hover">
           Come work at Castle!
-        </StatusBadge>
+        </StatusBadge> */}
+        <div />
         <TopControlsRight>
           <ThemeToggle />
           <GitHubBadge href="https://github.com/soukaryag" target="_blank" rel="noopener noreferrer" className="glass btn-hover">

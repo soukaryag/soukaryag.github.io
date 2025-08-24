@@ -28,14 +28,14 @@ export const ContactAnswer: React.FC<ContactAnswerProps> = ({ className }) => {
       label: 'Email',
       value: 'sg4fz@virginia.edu',
       href: 'mailto:sg4fz@virginia.edu',
-      note: 'Best for professional inquiries'
+      note: 'I probably won\'t respond to this'
     },
     {
       icon: '💼',
       label: 'LinkedIn',
       value: 'linkedin.com/in/soukaryaghosh',
       href: 'https://linkedin.com/in/soukaryaghosh',
-      note: 'Professional networking'
+      note: 'Best place to reach out'
     },
     {
       icon: '🐙',
@@ -45,18 +45,11 @@ export const ContactAnswer: React.FC<ContactAnswerProps> = ({ className }) => {
       note: 'Check out my code!'
     },
     {
-      icon: '📱',
-      label: 'Phone',
-      value: '+1 (571) 337-7193',
-      href: 'tel:+15713377193',
-      note: 'Available during business hours'
-    },
-    {
-      icon: '🌐',
-      label: 'Website',
-      value: 'soukarya.com',
-      href: 'https://soukarya.com',
-      note: 'You\'re already here!'
+      icon: '🏃',
+      label: 'Strava',
+      value: 'Sub 3 at some point',
+      href: 'https://www.strava.com/athletes/130671185',
+      note: 'Why am I running?'
     }
   ];
 
