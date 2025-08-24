@@ -61,7 +61,7 @@ export const ChatPage: React.FC = () => {
   const quickActions: QuickAction[] = [
     { key: 'about', icon: '👨‍💻', text: 'Me', prompt: 'Tell me about yourself' },
     { key: 'experience', icon: '💼', text: 'Experience', prompt: "What's your work experience?" },
-    { key: 'projects', icon: '🚀', text: 'Projects', prompt: 'Show me your projects' },
+    { key: 'experiences', icon: '🚀', text: 'Experiences', prompt: 'Show me your experiences' },
     { key: 'skills', icon: '⚡', text: 'Skills', prompt: 'What are your skills?' },
     { key: 'fun', icon: '🎯', text: 'Fun', prompt: 'Something fun about you?' },
     { key: 'contact', icon: '📧', text: 'Contact', prompt: 'How can I contact you?' }

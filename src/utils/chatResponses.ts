@@ -43,7 +43,7 @@ Each role taught me something new about scaling systems, leading teams, and buil
 
 Plus the usual suspects: Git, Linux/Unix, Agile, and enough Diet Coke knowledge to be dangerous 🥤`,
     
-    projects: `Here are some projects I'm proud of:
+    experiences: `Here are some experiences I'm proud of:
     
 🦠 **TrackCorona** - Global COVID-19 tracker (14M+ pageviews!)
 Built during the pandemic to provide real-time, accurate data. React frontend with automated data aggregation backend.
@@ -82,18 +82,18 @@ Whether you're looking to collaborate on a project, discuss tech trends, or just
     
 🚀 **Space Nerd** - I follow SpaceX launches religiously and dream about the day we'll debug code on Mars.
     
-💡 **Random Projects** - I once built a combinatorics calculator just because math is beautiful. It's probably still buried in my GitHub somewhere!
+💡 **Random Experiences** - I once built a combinatorics calculator just because math is beautiful. It's probably still buried in my GitHub somewhere!
     
 🎨 **Portfolio Evolution** - This site itself has gone through many iterations - from terminal UI to now this ChatGPT-style interface!`,
     
     default: `That's a great question! I'm still learning how to answer everything, but I can definitely tell you about:
     
 • My background and experience 👨‍💻
-• Technical skills and projects 🚀  
+• Technical skills and experiences 🚀  
 • How to get in touch with me 📧
 • Some fun facts about me 🎯
 
-Try clicking one of the buttons below, or ask me something like "tell me about your experience at Amazon" or "what projects are you most proud of?"
+Try clicking one of the buttons below, or ask me something like "tell me about your experience at Amazon" or "what experiences are you most proud of?"
 
 I'm always getting better at understanding what you're curious about! 😊`
   };
@@ -106,7 +106,7 @@ I'm always getting better at understanding what you're curious about! 😊`
   } else if (input.includes('skill') || input.includes('tech') || input.includes('language') || input.includes('framework') || input.includes('programming')) {
     return responses.skills;
   } else if (input.includes('project') || input.includes('build') || input.includes('made') || input.includes('created') || input.includes('trackcorona')) {
-    return responses.projects;
+    return responses.experiences;
   } else if (input.includes('contact') || input.includes('reach') || input.includes('email') || input.includes('linkedin') || input.includes('phone')) {
     return responses.contact;
   } else if (input.includes('fun') || input.includes('hobby') || input.includes('personal') || input.includes('interesting') || input.includes('diet coke') || input.includes('uva')) {
@@ -114,7 +114,7 @@ I'm always getting better at understanding what you're curious about! 😊`
   } else if (input.includes('hello') || input.includes('hi ') || input.includes('hey') || input.includes('sup')) {
     return `Hey there! 👋 Great to see you in the chat! I'm Soukarya, and I'm excited to tell you about my work in software engineering, AI, and security.
 
-What would you like to know about me? You can ask about my experience, projects, skills, or just chat!`;
+What would you like to know about me? You can ask about my experience, experiences, skills, or just chat!`;
   } else if (input.includes('how') && (input.includes('made') || input.includes('built this') || input.includes('create this'))) {
     return `Great question! This portfolio went through quite the journey! 🚀
 

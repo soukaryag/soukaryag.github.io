@@ -42,7 +42,7 @@ export const HomePage: React.FC = () => {
   const phrases = [
     "Ask me anything...",
     "Where do you work?",
-    "Tell me about your projects",
+    "Tell me about your experiences",
     "What are your skills?",
     "How can I contact you?",
     "Tell me something fun about you!"
@@ -58,7 +58,7 @@ export const HomePage: React.FC = () => {
   // Quick actions configuration
   const quickActions: QuickAction[] = [
     { key: 'about', icon: '👨‍💻', text: 'Me', query: 'Tell me about yourself' },
-    { key: 'projects', icon: '🚀', text: 'Projects', query: 'Show me your projects' },
+    { key: 'experiences', icon: '🚀', text: 'Experiences', query: 'Show me your experiences' },
     { key: 'skills', icon: '⚡', text: 'Skills', query: 'What are your skills?' },
     { key: 'fun', icon: '🎯', text: 'Fun', query: 'Something fun about you?' },
     { key: 'contact', icon: '📧', text: 'Contact', query: 'How can I contact you?' }
