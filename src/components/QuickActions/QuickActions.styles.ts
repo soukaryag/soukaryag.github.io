@@ -27,6 +27,10 @@ export const ActionIcon = styled.span`
   line-height: 1;
   position: relative;
   z-index: 2;
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    font-size: ${props => props.theme.typography.fontSize.md};
+  }
 `;
 
 export const ActionText = styled.span`

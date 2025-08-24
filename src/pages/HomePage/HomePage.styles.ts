@@ -120,6 +120,10 @@ export const Subtitle = styled.p`
   line-height: 1.1;
   margin: 0;
   text-align: center;
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    font-size: ${props => props.theme.typography.fontSize.lg};
+  }
 `;
 
 export const MainTitle = styled.p`
@@ -128,6 +132,10 @@ export const MainTitle = styled.p`
   font-weight: ${props => props.theme.typography.fontWeight.bold};
   margin: 0;
   opacity: 0.8;
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    font-size: ${props => props.theme.typography.fontSize.xxxl};
+  }
 `;
 
 export const AvatarSection = styled.div<{ $disableAnimations?: boolean }>`
@@ -142,6 +150,11 @@ export const AvatarContainer = styled.div`
   position: relative;
   width: 300px;
   height: 300px;
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    width: 200px;
+    height: 200px;
+  }
 `;
 
 export const AvatarImg = styled.img`
@@ -193,6 +206,10 @@ export const InputContainer = styled.div`
     pointer-events: none;
     border-radius: inherit;
   }
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    padding: 4px 8px;
+  }
 `;
 
 export const StyledInput = styled.input`
@@ -240,6 +257,11 @@ export const SubmitButton = styled.button`
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+  }
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    width: 36px;
+    height: 36px;
   }
 `;
 

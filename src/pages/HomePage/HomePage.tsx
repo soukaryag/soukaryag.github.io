@@ -242,8 +242,8 @@ export const HomePage: React.FC = () => {
           Currently building the future of home finances at
           <FooterLink href="https://www.getcastle.com" target="_blank" rel="noopener noreferrer">
             Castle
-          </FooterLink> 
-          in NYC 🏰
+          </FooterLink>
+          🏰
         </FooterText>
       </Footer>
     </Container>
