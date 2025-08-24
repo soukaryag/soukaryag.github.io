@@ -46,6 +46,11 @@ export const AvatarContainer = styled.a<{ $visible: boolean }>`
   cursor: pointer;
   transition: opacity 0.5s ease-in-out;
   opacity: ${props => props.$visible ? 1 : 0};
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 export const Avatar = styled.img`
