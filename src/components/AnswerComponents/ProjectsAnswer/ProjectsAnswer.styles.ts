@@ -48,7 +48,11 @@ export const ProjectsScrollWrapper = styled.div`
   &::after {
     content: '';
     flex-shrink: 0;
-    width: 1rem;
+    width: 0.1rem;
+  }
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    padding: 0.5rem;
   }
 `;
 
@@ -120,6 +124,11 @@ export const ProjectCard = styled.div`
       rgba(0, 0, 0, 0.8) 100%
     );
     z-index: 1;
+  }
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    width: 175px;
+    height: 250px;
   }
 `;
 
