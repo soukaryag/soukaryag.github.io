@@ -38,7 +38,7 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ actions, onActionCli
       style={isCompact ? {
         justifyContent: 'center',
         gap: '8px',
-        padding: '2px 0 12px 0',
+        padding: '12px 0',
         overflowX: 'auto',
         scrollbarWidth: 'none',
         msOverflowStyle: 'none',

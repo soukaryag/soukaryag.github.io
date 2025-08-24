@@ -33,7 +33,6 @@ export const Header = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: ${props => props.theme.spacing.md};
   text-align: center;
 `;
 
@@ -217,7 +216,6 @@ export const InputArea = styled.div`
   width: 100%;
   padding: ${props => props.theme.spacing.md};
   z-index: 10;
-  background: ${props => props.theme.colors.background};
   border-top: 1px solid ${props => props.theme.colors.border};
 `;
 
