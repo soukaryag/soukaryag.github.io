@@ -96,6 +96,10 @@ export const MainContent = styled.main`
   width: 100%;
   width: 750px;
   text-align: center;
+  
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    width: 100%;
+  }
 `;
 
 export const TitleSection = styled.div<{ $disableAnimations?: boolean }>`

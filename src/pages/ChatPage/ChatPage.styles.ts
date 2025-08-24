@@ -138,6 +138,10 @@ export const MessagesContainer = styled.main`
   /* Firefox scrollbar */
   scrollbar-width: thin;
   scrollbar-color: ${props => props.theme.colors.border} transparent;
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    width: 100%;
+  }
 `;
 
 export const MessageWrapper = styled.div<{ $isUser: boolean }>`
@@ -250,6 +254,11 @@ export const InputArea = styled.div`
   width: 100%;
   padding: ${props => props.theme.spacing.md};
   z-index: 10;
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    bottom: 10px;
+    padding: ${props => props.theme.spacing.sm};
+  }
 `;
 
 export const QuickActionsWrapper = styled.div<{ $isCollapsed: boolean }>`
@@ -304,6 +313,10 @@ export const InputContainer = styled.div`
     0 12px 40px rgba(0, 0, 0, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.95),
     inset 0 -1px 0 rgba(255, 255, 255, 0.3);
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    margin-top: 10px;
+  }
 `;
 
 export const StyledTextarea = styled.textarea`

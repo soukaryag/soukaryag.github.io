@@ -20,6 +20,11 @@ export const ProfileImage = styled.img`
   height: 250px;
   object-fit: contain;
   border-radius: 10px;
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    width: 150px;
+    height: 150px;
+  }
 `;
 
 export const BasicInfo = styled.div`
@@ -39,6 +44,10 @@ export const Name = styled.h3`
   font-size: ${({ theme }) => theme.typography.fontSize.xxxl};
   font-weight: ${({ theme }) => theme.typography.fontWeight.extraBold};
   color: ${({ theme }) => theme.colors.text};
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    font-size: ${({ theme }) => theme.typography.fontSize.xxl};
+  }
 `;
 
 export const Title = styled.p`
@@ -46,6 +55,10 @@ export const Title = styled.p`
   color: ${({ theme }) => theme.colors.textSecondary}!important;
   font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
   margin: 0!important;
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    font-size: ${({ theme }) => theme.typography.fontSize.sm};
+  }
 `;
 
 export const TagsContainer = styled.div`
@@ -63,6 +76,10 @@ export const Tag = styled.span`
   font-size: 0.85rem;
   font-weight: 500;
   border: 1px solid ${({ theme }) => theme.colors.primary}20;
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    font-size: ${({ theme }) => theme.typography.fontSize.xs};
+  }
 `;
 
 export const Description = styled.div`

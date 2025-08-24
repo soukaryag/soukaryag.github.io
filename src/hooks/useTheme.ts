@@ -5,11 +5,8 @@ import { lightTheme, darkTheme, ThemeType, Theme } from '../theme';
 export const useTheme = () => {
   const THEME_KEY = 'preferred-theme';
   
-  // Get system theme preference
+  // Get system theme preference - default to light mode for new users
   const getSystemTheme = useCallback((): ThemeType => {
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
     return 'light';
   }, []);
 

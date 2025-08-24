@@ -54,7 +54,7 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ actions, onActionCli
           onKeyDown={(e) => handleKeyDown(e, action)}
           tabIndex={0}
           style={isCompact ? {
-            borderRadius: '12px',
+            borderRadius: '25px',
             padding: '12px 16px',
             minWidth: 'auto',
             width: 'auto',

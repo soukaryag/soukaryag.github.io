@@ -475,7 +475,7 @@ export const ChatPage: React.FC = () => {
               </QuickActionsToggle>
               
               <QuickActionsWrapper $isCollapsed={quickActionsCollapsed}>
-                <QuickActions 
+                <QuickActions
                   actions={homePageActions} 
                   onActionClick={handleQuickAction}
                   variant="compact"

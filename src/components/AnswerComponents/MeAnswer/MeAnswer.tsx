@@ -48,7 +48,7 @@ export const MeAnswer: React.FC<MeAnswerProps> = ({ className, onRevealStart }) 
       type: 'component',
       content: (
         <HeaderSection>
-          <ProfileImage src="/images/portrait.jpg" alt="Soukarya's Avatar" />
+          <ProfileImage src="/images/portrait.JPG" alt="Soukarya's Avatar" />
           <BasicInfo>
             <BasicInfoText>
               <Name>Soukarya Ghosh</Name>
