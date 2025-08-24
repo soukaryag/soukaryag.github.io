@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ThemeToggle, QuickActions } from '../../components';
 import { QuickAction } from '../../components/QuickActions';
 import { useTypingPlaceholder } from '../../hooks/useTypingPlaceholder';
+import { getQuickActionsForComponent } from '../../config/quickActions';
 import {
   Container,
   TopControls,
@@ -55,14 +56,8 @@ export const HomePage: React.FC = () => {
     startDelay: 2000
   }, !inputValue.trim()); // Only active when input is empty
 
-  // Quick actions configuration
-  const quickActions: QuickAction[] = [
-    { key: 'about', icon: '👨‍💻', text: 'Me', query: 'Tell me about yourself' },
-    { key: 'experiences', icon: '🚀', text: 'Experiences', query: 'Show me your experiences' },
-    { key: 'skills', icon: '⚡', text: 'Skills', query: 'What are your skills?' },
-    { key: 'fun', icon: '🎯', text: 'Fun', query: 'Something fun about you?' },
-    { key: 'contact', icon: '📧', text: 'Contact', query: 'How can I contact you?' }
-  ];
+  // Use common quick actions configuration
+  const quickActions: QuickAction[] = getQuickActionsForComponent();
 
   // Focus input on mount and after animations
   useEffect(() => {

@@ -7,7 +7,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: ${props => props.theme.spacing.lg};
+  padding: 0 ${props => props.theme.spacing.lg};
   
   @media (max-width: ${props => props.theme.breakpoints.mobile}) {
     padding: ${props => props.theme.spacing.md};
@@ -34,6 +34,7 @@ export const Header = styled.header`
   flex-direction: column;
   align-items: center;
   text-align: center;
+  padding-top: ${props => props.theme.spacing.md};
 `;
 
 export const AvatarContainer = styled.a`
@@ -74,7 +75,7 @@ export const MessagesContainer = styled.main`
   padding: ${props => props.theme.spacing.lg};
   display: flex;
   flex-direction: column;
-  max-width: 750px;
+  width: 750px;
   
   /* Custom scrollbar */
   &::-webkit-scrollbar {
@@ -212,11 +213,10 @@ export const TypingDots = styled.div`
 
 export const InputArea = styled.div`
   position: sticky;
-  bottom: 0;
+  bottom: 30px;
   width: 100%;
   padding: ${props => props.theme.spacing.md};
   z-index: 10;
-  border-top: 1px solid ${props => props.theme.colors.border};
 `;
 
 export const QuickActionsWrapper = styled.div<{ $isCollapsed: boolean }>`

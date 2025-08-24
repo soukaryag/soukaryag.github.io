@@ -94,7 +94,7 @@ export const MainContent = styled.main`
   align-items: center;
   gap: ${props => props.theme.spacing.lg};
   width: 100%;
-  max-width: 750px;
+  width: 750px;
   text-align: center;
 `;
 
