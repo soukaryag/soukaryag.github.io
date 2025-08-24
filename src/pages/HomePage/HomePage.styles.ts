@@ -96,7 +96,7 @@ export const MainContent = styled.main`
   width: 100%;
   width: 750px;
   text-align: center;
-  
+
   @media (max-width: ${props => props.theme.breakpoints.mobile}) {
     width: 100%;
   }
@@ -120,10 +120,6 @@ export const Subtitle = styled.p`
   line-height: 1.1;
   margin: 0;
   text-align: center;
-  
-  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
-    font-size: 2.25rem;
-  }
 `;
 
 export const MainTitle = styled.p`
