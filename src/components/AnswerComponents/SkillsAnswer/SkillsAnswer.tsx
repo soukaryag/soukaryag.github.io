@@ -49,7 +49,7 @@ export const SkillsAnswer: React.FC<SkillsAnswerProps> = ({ className }) => {
         { name: 'React.js', proficiency: 'expert' },
         { name: 'Vite', proficiency: 'advanced' },
         { name: 'Responsive Design', proficiency: 'expert' },
-        { name: 'Styled Components', proficiency: 'advanced' }
+        { name: 'Styled Component', proficiency: 'advanced' }
       ]
     },
     {

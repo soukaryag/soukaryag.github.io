@@ -31,9 +31,11 @@ export const GlobalStyles = createGlobalStyle`
     min-height: 100vh;
   }
 
-  /* Custom scrollbar for webkit browsers */
+  /* Hide scrollbars globally - will be overridden for specific containers that need them */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 0px;
+    height: 0px;
+    display: none;
   }
 
   ::-webkit-scrollbar-track {
@@ -41,12 +43,13 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   ::-webkit-scrollbar-thumb {
-    background: ${props => props.theme.colors.border};
-    border-radius: ${props => props.theme.borderRadius.full};
-    
-    &:hover {
-      background: ${props => props.theme.colors.textSecondary};
-    }
+    background: transparent;
+  }
+  
+  /* Firefox scrollbar hiding */
+  * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
   /* Focus styles */

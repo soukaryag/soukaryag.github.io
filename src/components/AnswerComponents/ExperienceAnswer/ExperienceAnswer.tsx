@@ -31,10 +31,10 @@ export const ExperienceAnswer: React.FC<ExperienceAnswerProps> = ({ className })
   const experiences = [
     {
       icon: '🏰',
-      title: 'Software Engineer',
+      title: 'Tech Lead',
       company: 'Castle',
       duration: '2024-Present',
-      description: 'Building fraud detection systems and security infrastructure for enterprise clients.'
+      description: 'Seed stage startup building the future of homeowner finances.'
     },
     {
       icon: '🚀',

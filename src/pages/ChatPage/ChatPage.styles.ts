@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import { Button, Input } from '../../components';
 
 export const Container = styled.div`
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -107,14 +108,16 @@ export const UserMessageInHeader = styled.div<{
 export const MessagesContainer = styled.main`
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: ${props => props.theme.spacing.lg};
   display: flex;
   flex-direction: column;
   width: 750px;
   
-  /* Custom scrollbar */
+  /* Custom scrollbar - override global scrollbar hiding */
   &::-webkit-scrollbar {
     width: 6px;
+    display: block;
   }
   
   &::-webkit-scrollbar-track {
@@ -129,6 +132,10 @@ export const MessagesContainer = styled.main`
   &::-webkit-scrollbar-thumb:hover {
     background: ${props => props.theme.colors.textSecondary};
   }
+  
+  /* Firefox scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: ${props => props.theme.colors.border} transparent;
 `;
 
 export const MessageWrapper = styled.div<{ $isUser: boolean }>`
