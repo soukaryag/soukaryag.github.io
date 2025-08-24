@@ -36,6 +36,10 @@ export const Header = styled.header`
   align-items: center;
   text-align: center;
   padding-top: ${props => props.theme.spacing.md};
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    padding-top: 0;
+  }
 `;
 
 export const AvatarContainer = styled.a<{ $visible: boolean }>`
@@ -50,6 +54,11 @@ export const AvatarContainer = styled.a<{ $visible: boolean }>`
 
   &:hover {
     transform: scale(1.1);
+  }
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    width: 60px;
+    height: 60px;
   }
 `;
 
@@ -146,6 +155,7 @@ export const MessagesContainer = styled.main`
 
   @media (max-width: ${props => props.theme.breakpoints.mobile}) {
     width: 100%;
+    padding: ${props => props.theme.spacing.sm};
   }
 `;
 

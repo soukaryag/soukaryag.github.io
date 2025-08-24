@@ -66,6 +66,10 @@ export const TagsContainer = styled.div`
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-top: 1rem;
+
+  @media (max-width: ${props => props.theme.breakpoints.mobile}) {
+    display: none;
+  }
 `;
 
 export const Tag = styled.span`
